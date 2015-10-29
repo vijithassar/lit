@@ -4,7 +4,7 @@ a little preprocessor for literate programming
 
 # Overview #
 
-[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea that source code should be written and/or richly annotated for clarity, as popularized by Donald Knuth. This is a tiny text preprocessor based on [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly write the content of the Markdown code blocks into code-only files.
+[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. This script is a tiny text preprocessor based on [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly send the content of the Markdown code blocks into parallel code-only files.
 
 # "Installation" #
 
@@ -40,4 +40,12 @@ These will not be compiled:
 
 # Miscellaneous #
 
-This is deeply inspired by [Literate CoffeeScript](http://coffeescript.org/#literate), intended to be much simpler than the powerful [Node.js literate-programming compiler](https://github.com/jostylr/literate-programming), and uses GitHub-style ["fenced code blocks"](https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks) delimited with backticks instead of the space-driven notation used by [traditional Markdown](https://daringfireball.net/projects/markdown/). It is almost entirely based on [Rich Traube's one-liner for awk](https://gist.github.com/trauber/4955706). I've just added a few convenience wrappers. It's minimalist and will remain that way, intended to be an unobtrusive part of other build processes.
+This lil guy:
+
+- was deeply inspired by [Literate CoffeeScript](http://coffeescript.org/#literate)
+- aims to be much simpler than the powerful [Node.js literate-programming compiler](https://github.com/jostylr/literate-programming)
+- uses GitHub-style ["fenced code blocks"](https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks) delimited with backticks instead of the space-driven notation used by [traditional Markdown](https://daringfireball.net/projects/markdown/)
+- is almost entirely based on [Rich Traube's one-liner for awk](https://gist.github.com/trauber/4955706); I've just added a few convenience wrappers
+- will probably break function folding in your code editor of choice
+- could theoretically implement source maps for JavaScript and CSS but hasn't yet bothered because equivalents aren't possible for all the other languages you might write with it
+- is minimalist and will remain that way so it can be an unobtrusive part of other your other build processes
