@@ -48,7 +48,7 @@ This lil guy:
 - aims to be much simpler than the powerful [Node.js literate-programming compiler](https://github.com/jostylr/literate-programming)
 - uses GitHub-style ["fenced code blocks"](https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks) delimited with backticks instead of the space-driven notation used by [traditional Markdown](https://daringfireball.net/projects/markdown/)
 - is almost entirely based on [Rich Traube's one-liner for awk](https://gist.github.com/trauber/4955706); I've just added a few convenience wrappers
-- will probably break function folding in your code editor of choice
+- will probably [break function folding](https://github.com/atom/atom/issues/8879) in your code editor of choice
 - could theoretically implement source maps for JavaScript and CSS but hasn't yet bothered because equivalents aren't possible for all the other languages you might write with it
 - is minimalist and will remain that way so it can be an unobtrusive part of other your other build processes
 - is itself written with [heavily annotated source code](https://github.com/vijithassar/lit/blob/master/lit.sh.md) and [recursively compiles itself](https://github.com/vijithassar/lit/commit/1bf289c056a156fca7da281ed6237578cd68534d), which is ridiculous and a huge pain in the ass but it's too late now
