@@ -6,7 +6,7 @@ a little preprocessor for literate programming
 
 [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. This script is a tiny text preprocessor based on [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly send the content of the Markdown code blocks into parallel code-only files.
 
-# "Installation" #
+# Installation?!? #
 
 Feel free to clone this repository, but you can also just download [the script](lit.sh). It is self contained and there are no dependencies beyond bash and awk.
 
@@ -49,3 +49,4 @@ This lil guy:
 - will probably break function folding in your code editor of choice
 - could theoretically implement source maps for JavaScript and CSS but hasn't yet bothered because equivalents aren't possible for all the other languages you might write with it
 - is minimalist and will remain that way so it can be an unobtrusive part of other your other build processes
+- is itself written with [heavily annotated source code](https://github.com/vijithassar/lit/blob/master/lit.sh.md) and [recursively compiles itself](https://github.com/vijithassar/lit/commit/1bf289c056a156fca7da281ed6237578cd68534d), which is ridiculous and a huge pain in the ass but it's too late now
