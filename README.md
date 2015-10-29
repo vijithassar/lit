@@ -2,6 +2,8 @@
 
 a little preprocessor for literate programming
 
+![fire](https://cloud.githubusercontent.com/assets/3488572/10808206/272feea0-7dbf-11e5-8d49-f6134a900530.png)
+
 # Overview #
 
 [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. This script is a tiny text preprocessor based on [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly send the content of the Markdown code blocks into parallel code-only files.
