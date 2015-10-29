@@ -35,6 +35,11 @@ We also need the ability to test a filename to see if it matches the conventions
 function test_filename {
   # first argument is the filename to test
   local file_path=$1
+  # return immediately this isn't a markdown file
+  local last_three_characters=${file_path: -3}
+  if [ $last_three_characters != ".md" ]; then
+    return 1
+  fi
   # strip leading directories and only look at the filename
   local file_name=${file_path##*/}
   # return filename
@@ -80,7 +85,8 @@ function process_lines {
 
 # Compile A Single File #
 
-Wrap the awk routine and the filename logic into a single function which can be called on any file to compile its output.
+Wrap the awk routine and the filename logic into a single
+function which can be called on any file to compile its output.
 
 ```bash
 # compile Markdown code blocks in a file using awk
