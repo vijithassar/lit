@@ -9,7 +9,7 @@ The shebang indicates that this script should be executed by the bash program.
 
 # Filenames #
 
-We want to support any type of code wrapped in Markdown, so we'll make no assumptions about the filename and extension preceding it and pass it through unmodified for use as the output filename.
+We want to support any type of code wrapped in Markdown, so we'll make no assumptions about the filename and extension preceding the Markdown .md extension and pass it through unmodified for use as the output filename of the compiled code.
 
 ```bash
 # given a filename ending in .md, return the base filename
