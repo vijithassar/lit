@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # given a filename ending in .md, return the base filename
 function remove_extension {
   local file=$1
