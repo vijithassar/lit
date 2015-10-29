@@ -8,19 +8,6 @@ a little preprocessor for literate programming
 
 [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. This script is a tiny text preprocessor based on [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly send the content of the Markdown code blocks into parallel code-only files. For a quick illustration, compare the [annotated source](hello-world.js.md) of the included hello-world script to its [compiled output](hello-world.js).
 
-
-# Advantages #
-
-- This script will work with any language.
-- If you write your code this way, your software documentation will be great.
-- Unlike most other literate programming tools, this script is transparently backwards compatible with non-literate code. To start literate programming with any file in a project, copy the original file, append the .md extension, add backticks at the top and bottom of the file, and then you're ready to start working in Markdown. Compiled changes will overwrite the original file and thus will be properly tracked by version control systems like Git.
-- More complex literate programming tools introduce the possibility of control flow using language instead of code, which means the program cannot function without the compiler. This script has linear output, which means you can also brute-force compile it simply by manually deleting the Markdown. In the unlikely event that you both decide literate programming isn't for you *and* can no longer access this script, you can still quickly extract all your code with a little elbow grease.
-
-# Disadvantages #
-
-- This will probably [break function folding](https://github.com/atom/atom/issues/8879) in your code editor of choice.
-- Line numbers in the source will differ from line numbers reported by debuggers. Source maps would solve this problem for JavaScript and CSS, but haven't yet been implemented because unfortunately equivalents don't exist for all the other languages you might write.
-
 # Installation?!? #
 
 Feel free to clone this repository, but you can also just [download the script](lit.sh). It is self contained and there are no dependencies beyond bash and awk, which you almost certainly already have.
@@ -55,6 +42,18 @@ These would not be compiled:
 
 - myscript.js
 - README.md
+
+# Advantages #
+
+- This script will work with any language.
+- If you write your code this way, your software documentation will be great.
+- Unlike most other literate programming tools, this script is transparently backwards compatible with non-literate code. To start literate programming with any file in a project, copy the original file, append the .md extension, add backticks at the top and bottom of the file, and then you're ready to start working in Markdown. Compiled changes will overwrite the original file and thus will be properly tracked by version control systems like Git.
+- More complex literate programming tools introduce the possibility of control flow using language instead of code, which means the program cannot function without the compiler. This script has linear output, which means you can also brute-force compile it simply by manually deleting the Markdown. In the unlikely event that you both decide literate programming isn't for you *and* can no longer access this script, you can still quickly extract all your code with a little elbow grease.
+
+# Disadvantages #
+
+- This will probably [break function folding](https://github.com/atom/atom/issues/8879) in your code editor of choice.
+- Line numbers in the source will differ from line numbers reported by debuggers. Source maps would solve this problem for JavaScript and CSS, but haven't yet been implemented because unfortunately equivalents don't exist for all the other languages you might write.
 
 # Pedantry #
 
