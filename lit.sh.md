@@ -123,6 +123,8 @@ else
 fi
 ```
 
+# Execution Loop #
+
 For each file, test the filename to see if it looks like a literate code file. If it does, compile it.
 
 ```bash
