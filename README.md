@@ -13,7 +13,7 @@ a little preprocessor for literate programming
 
 - This script will work with any language.
 - If you write your code this way, your software documentation will be great.
-- Unlike most other literate programming tools, this script is transparently backwards compatible with non-literate code. To start literate programming with any file in a project, copy the original file, append the .md extension, add backticks at the top and bottom, of the file, and then you're ready to start working in Markdown. Compiled changes will overwrite the original file and thus will be properly tracked by version control systems like Git.
+- Unlike most other literate programming tools, this script is transparently backwards compatible with non-literate code. To start literate programming with any file in a project, copy the original file, append the .md extension, add backticks at the top and bottom of the file, and then you're ready to start working in Markdown. Compiled changes will overwrite the original file and thus will be properly tracked by version control systems like Git.
 - More complex literate programming tools introduce the possibility of control flow using language instead of code, which means the program cannot function without the compiler. This script has linear output, which means you can also brute-force compile it simply by manually deleting the Markdown. In the unlikely event that you both decide literate programming isn't for you *and* can no longer access this script, you can still quickly extract all your code with a little elbow grease.
 
 # Disadvantages #
