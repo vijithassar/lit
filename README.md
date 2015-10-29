@@ -28,14 +28,14 @@ The script takes one optional argument, which is a UNIX file pattern. If you don
 $ ./lit.sh ./src/*
 ```
 
-In addition to your file pattern, filenames must contain two extensions in order for the compiler to operate on them. The first should be the regular extension for the language you're compiling to, and the second.
+In addition to your file pattern, filenames must contain two extensions in order for the compiler to operate on them. The first should be the regular extension for the language you're compiling to, and the second obviously needs to be the .md extension for Markdown.
 
 For example, these filenames would be compiled:
 
 - myscript.js.md
 - some_program.py.md
 
-These will not be compiled:
+These would not be compiled:
 
 - myscript.js
 - README.md
@@ -49,6 +49,6 @@ This lil guy:
 - uses GitHub-style ["fenced code blocks"](https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks) delimited with backticks instead of the space-driven notation used by [traditional Markdown](https://daringfireball.net/projects/markdown/)
 - is almost entirely based on [Rich Traube's one-liner for awk](https://gist.github.com/trauber/4955706); I've just added a few convenience wrappers
 - will probably [break function folding](https://github.com/atom/atom/issues/8879) in your code editor of choice
-- could theoretically implement source maps for JavaScript and CSS but hasn't yet bothered because equivalents aren't possible for all the other languages you might write with it
+- will display code on a different line than your debugger might report when it runs the compiled results; source maps are theoretically possible for JavaScript and CSS but unfortunately equivalents don't exist for all the other languages you might write
 - is minimalist and will remain that way so it can be an unobtrusive part of other your other build processes
 - is itself written with [heavily annotated source code](https://github.com/vijithassar/lit/blob/master/lit.sh.md) and [recursively compiles itself](https://github.com/vijithassar/lit/commit/1bf289c056a156fca7da281ed6237578cd68534d), which is ridiculous and a huge pain in the ass but it's too late now
