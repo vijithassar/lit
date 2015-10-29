@@ -56,6 +56,16 @@ These would not be compiled:
 - myscript.js
 - README.md
 
+# Pedantry #
+
+This isn't quite true to the original conception of literate programming, which particularly advocated for nonlinear compiling so source code can be structured for humans and then reorganized for execution.
+
+However:
+
+- Most modern programming languages mitigate the importance of this feature by allowing functions and objects to be defined in memory fairly freely and then executed later.
+- Nonlinear compiling introduces an irreversible dependency on the compiler; the nonlinear logic added by the literate programming tool effectively becomes part of the application code.
+- If you really want nonlinear compiling, you are free to implement it in your build process by using [grunt-concat](https://github.com/gruntjs/grunt-contrib-concat) or similar – that is, it is still possible using this tool if you just use separate files for each block and concatenate elsewhere. You may not like the idea of making your build process part of your application logic, but that's not actually so different from doing the same using your literate programming tool.
+
 # Miscellaneous #
 
 This lil guy:
