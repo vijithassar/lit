@@ -28,6 +28,26 @@ function remove_extension {
 }
 ```
 
+We also need the ability to test a filename to see if it matches the conventions we're assuming for literate programming, which is to say, we need to ensure that it has. (See what's going on? We're grouping this code along with the other filename parsing logic even though we actually use it in the main execution loop. This, right here, is literate programming!)
+
+```bash
+# make sure a filename is safe to process
+function test_filename {
+  # first argument is the filename to test
+  local file_path=$1
+  # strip leading directories and only look at the filename
+  local file_name=${file_path##*/}
+  # return filename
+  local dots=${file_name//[^.]};
+  local dot_count=${#dots}
+  if [ $dot_count -gt 1 ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+```
+
 # Parse Markdown Lines #
 
 This function uses a needlessly verbose version of [Rich Traube](https://github.com/trauber)'s clever [one-line awk routine](https://gist.github.com/trauber/4955706) to walk through the lines in the Markdown document and pass them into the output file as appropriate.
@@ -78,9 +98,11 @@ function compile {
 }
 ```
 
-# Loop Through All Files #
+# Input Argument #
 
-Everything up until this point has been wrapped in a reusable function, but now it's time to define the script logic. Grab the files specified by an optional filename pattern (or alternatively the files in the current working directory) and run the compilation function on each.
+Everything up until this point has been wrapped in a reusable function, but now it's time to define the script logic.
+
+First, grab the files specified by an optional filename pattern (or alternatively the files in the current working directory).
 
 ```bash
 # if the first argument exists, use it as the
@@ -92,13 +114,20 @@ else
   # files must end in .md and must contain TWO
   # dots so as to exclude regular non-source
   # Markdown files
-  files=*.*.md
+  files=.
 fi
+```
 
+For each file, test the filename to see if it looks like a literate code file. If it does, compile it.
+
+```bash
 # loop through files
 for file in $files
 do
-  # compile
-  compile $file
+  # make sure it's a literate code file
+  if test_filename $file; then
+    # compile
+    compile $file
+  fi
 done
 ```
