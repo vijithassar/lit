@@ -6,7 +6,7 @@ a little preprocessor for literate programming
 
 # Overview #
 
-[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. This script is a tiny text preprocessor based on [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly send the content of the Markdown code blocks into parallel code-only files. For example, compare the [annotated source](hello-world.js.md) of the included hello-world script to its [compiled output](hello-world.js).
+[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. This script is a tiny text preprocessor based on [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly send the content of the Markdown code blocks into parallel code-only files. For a quick illustration, compare the [annotated source](hello-world.js.md) of the included hello-world script to its [compiled output](hello-world.js).
 
 
 # Advantages #
@@ -23,14 +23,14 @@ a little preprocessor for literate programming
 
 # Installation?!? #
 
-Feel free to clone this repository, but you can also just download [the script](lit.sh). It is self contained and there are no dependencies beyond bash and awk.
+Feel free to clone this repository, but you can also just [download the script](lit.sh). It is self contained and there are no dependencies beyond bash and awk, which you almost certainly already have.
 
 # Usage #
 
 To compile literate source code, simply run the script.
 
 ```bash
-# compile literate code
+# compile literate code files
 $ ./lit.sh
 ```
 
@@ -40,7 +40,7 @@ The script takes one optional argument, which is a UNIX file pattern. If you don
 # compile literate code files in the current directory
 $ ./lit.sh
 
-# compile files in the src subdirectory
+# compile literate code files in the src subdirectory
 $ ./lit.sh ./src/*
 ```
 
