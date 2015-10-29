@@ -28,7 +28,9 @@ function remove_extension {
 }
 ```
 
-We also need the ability to test a filename to see if it matches the conventions we're assuming for literate programming, which is to say, we need to ensure that it has. (See what's going on? We're grouping this code along with the other filename parsing logic even though we actually use it in the main execution loop. This, right here, is literate programming!)
+We also need the ability to test a filename to see if it matches the conventions we're assuming for literate programming, which is to say, we need to ensure that it both has double extensions to signify a programming language wrapped in Markdown and ends with .md as the second.
+
+See what's going on? We're grouping this code along with the other filename parsing logic even though we actually use it in the main execution loop way at the end. This, right here, is literate programming!
 
 ```bash
 # make sure a filename is safe to process
