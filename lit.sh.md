@@ -35,7 +35,7 @@ We also need the ability to test a filename to see if it matches the conventions
 function test_filename {
   # first argument is the filename to test
   local file_path=$1
-  # return immediately this isn't a markdown file
+  # return immediately if this isn't a markdown file
   local last_three_characters=${file_path: -3}
   if [ $last_three_characters != ".md" ]; then
     return 1
