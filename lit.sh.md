@@ -29,7 +29,7 @@ function remove_extension {
 
 # Parse Markdown Lines #
 
-This function uses a needlessly expanded version of [Rich Traube](https://github.com/trauber)'s clever [one-line awk routine](https://gist.github.com/trauber/4955706) to walk through the lines in the Markdown document and pass them into the output file as appropriate.
+This function uses a needlessly verbose version of [Rich Traube](https://github.com/trauber)'s clever [one-line awk routine](https://gist.github.com/trauber/4955706) to walk through the lines in the Markdown document and pass them into the output file as appropriate.
 
 ```bash
 # strip Markdown
