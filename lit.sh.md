@@ -1,4 +1,4 @@
-# Start #
+# Startup #
 
 The shebang indicates that this script should be executed by the bash program.
 
@@ -27,7 +27,7 @@ function remove_extension {
 }
 ```
 
-# Processing
+# Parse Markdown Lines #
 
 This function uses a needlessly expanded version of [Rich Traube](https://github.com/trauber)'s clever [one-line awk routine](https://gist.github.com/trauber/4955706) to walk through the lines in the Markdown document and pass them into the output file as appropriate.
 
@@ -57,7 +57,7 @@ function process_lines {
 }
 ```
 
-# Single File #
+# Compile A Single File #
 
 Wrap the awk routine and the filename logic into a single function which can be called on any file to compile its output.
 
@@ -77,7 +77,7 @@ function compile {
 }
 ```
 
-# Loop Through Files #
+# Loop Through All Files #
 
 Everything up until this point has been wrapped in a reusable function, but now it's time to define the script logic. Grab the files specified by an optional filename pattern (or alternatively the files in the current working directory) and run the compilation function on each.
 
