@@ -51,4 +51,4 @@ This lil guy:
 - will probably [break function folding](https://github.com/atom/atom/issues/8879) in your code editor of choice
 - will display code on a different line than your debugger might report when it runs the compiled results; source maps are theoretically possible for JavaScript and CSS but unfortunately equivalents don't exist for all the other languages you might write
 - is minimalist and will remain that way so it can be an unobtrusive part of other your other build processes
-- is itself written with [heavily annotated source code](https://github.com/vijithassar/lit/blob/master/lit.sh.md) and [recursively compiles itself](https://github.com/vijithassar/lit/commit/1bf289c056a156fca7da281ed6237578cd68534d), which is ridiculous and a huge pain in the ass but it's too late now
+- is itself written with [heavily annotated source code](https://github.com/vijithassar/lit/blob/master/lit.sh.md) and [recursively compiles itself](https://github.com/vijithassar/lit/commit/1bf289c056a156fca7da281ed6237578cd68534d), which is ridiculous and a huge pain in the ass but it's too late now!
