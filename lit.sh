@@ -18,7 +18,7 @@ function remove_extension {
 function test_filename {
   # first argument is the filename to test
   local file_path=$1
-  # return immediately this isn't a markdown file
+  # return immediately if this isn't a markdown file
   local last_three_characters=${file_path: -3}
   if [ $last_three_characters != ".md" ]; then
     return 1
@@ -62,7 +62,7 @@ function compile {
   # first argument is filename
   local file=$1
   # conver to the new filename
-  local new_filename=$(remove_extension $file "md")
+  local new_filename=$(remove_extension $file)
   # log message
   echo "compiling $file > $new_filename"
   # parse file content and remove Markdown comments

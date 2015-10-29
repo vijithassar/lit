@@ -96,7 +96,7 @@ function compile {
   # first argument is filename
   local file=$1
   # conver to the new filename
-  local new_filename=$(remove_extension $file "md")
+  local new_filename=$(remove_extension $file)
   # log message
   echo "compiling $file > $new_filename"
   # parse file content and remove Markdown comments
