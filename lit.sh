@@ -14,6 +14,21 @@ function remove_extension {
   # return the new string
   echo "$new_filename"
 }
+# make sure a filename is safe to process
+function test_filename {
+  # first argument is the filename to test
+  local file_path=$1
+  # strip leading directories and only look at the filename
+  local file_name=${file_path##*/}
+  # return filename
+  local dots=${file_name//[^.]};
+  local dot_count=${#dots}
+  if [ $dot_count -gt 1 ]; then
+    return 0
+  else
+    return 1
+  fi
+}
 # strip Markdown
 function process_lines {
   # first argument is filename
@@ -56,15 +71,14 @@ if [ $1 ]; then
   files=$1
 # otherwise load all files in current directory
 else
-  # files must end in .md and must contain TWO
-  # dots so as to exclude regular non-source
-  # Markdown files
-  files=*.*.md
+  files=.
 fi
-
 # loop through files
 for file in $files
 do
-  # compile
-  compile $file
+  # make sure it's a literate code file
+  if test_filename $file; then
+    # compile
+    compile $file
+  fi
 done

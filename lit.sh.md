@@ -111,9 +111,6 @@ if [ $1 ]; then
   files=$1
 # otherwise load all files in current directory
 else
-  # files must end in .md and must contain TWO
-  # dots so as to exclude regular non-source
-  # Markdown files
   files=.
 fi
 ```
