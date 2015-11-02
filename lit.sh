@@ -76,7 +76,7 @@ if [ $1 ]; then
   files=$1
 # otherwise load all files in current directory
 else
-  files=.
+  files="."
 fi
 # loop through files
 for file in $(ls $files)
