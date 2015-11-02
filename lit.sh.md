@@ -129,7 +129,7 @@ For each file, test the filename to see if it looks like a literate code file. I
 
 ```bash
 # loop through files
-for file in $files
+for file in $(ls $files)
 do
   # make sure it's a literate code file
   if test_filename $file; then

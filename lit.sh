@@ -79,7 +79,7 @@ else
   files=.
 fi
 # loop through files
-for file in $files
+for file in $(ls $files)
 do
   # make sure it's a literate code file
   if test_filename $file; then
