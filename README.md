@@ -31,6 +31,14 @@ $ ./lit.sh
 $ ./lit.sh ./src/*
 ```
 
+Bash scripts sometimes complain about file patterns arguments, so if you're getting unexpected behavior, try quoting the file pattern and passing it as a string instead.
+
+```bash
+# compile literate code files in the src subdirectory
+$ ./lit.sh "./src/*"
+```
+
+
 In addition to your file pattern, filenames must contain two extensions in order for the compiler to operate on them. The first should be the regular extension for the language you're compiling to, and the second should be the Markdown .md extension.
 
 For example, these filenames would be compiled:
