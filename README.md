@@ -31,7 +31,7 @@ $ ./lit.sh
 $ ./lit.sh ./src/*
 ```
 
-Bash scripts sometimes complain about file patterns arguments, so if you're getting unexpected behavior, try quoting the file pattern and passing it as a string instead.
+Bash sometimes gets weird when it's passed file patterns as script arguments, so if you're seeing unexpected behavior, try quoting the file pattern and passing it as a string instead.
 
 ```bash
 # compile literate code files in the src subdirectory
