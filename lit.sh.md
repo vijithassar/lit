@@ -115,7 +115,7 @@ First, grab the files specified by an optional filename pattern (or alternativel
 ```bash
 # if the first argument exists, use it as the
 # target directory
-if [ $1 ]; then
+if [ "$1" ]; then
   files=$1
 # otherwise load all files in current directory
 else
