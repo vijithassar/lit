@@ -13,7 +13,7 @@
   [ "${pre}" == "${post}" ]
 }
 
-@test "does not compile files that end in .md without a double extension" {
+@test "should not compile files that end in .md without a double extension" {
   mkdir test
   ./lit.sh ./lit.sh.md
   touch test/README.md
@@ -23,7 +23,7 @@
   [ "${count}" -eq 1 ]
 }
 
-@test "does not compile files that end in a normal file extension" {
+@test "should not compile files that end in a single file extension" {
   mkdir test
   ./lit.sh ./lit.sh.md
   touch test/script.py
@@ -34,7 +34,7 @@
   [ "${count}" -eq 2 ]
 }
 
-@test "does not compile non-Markdown files that end in a double file extension" {
+@test "should not compile non-Markdown files that end in a double file extension" {
   mkdir test
   ./lit.sh ./lit.sh.md
   touch test/script.py.js
@@ -44,7 +44,7 @@
   [ "${count}" -eq 1 ]
 }
 
-@test "compiles Markdown files that end in a double file extension" {
+@test "should compile Markdown files that end in a double file extension" {
   mkdir test
   ./lit.sh ./lit.sh.md
   touch test/script.py.md
@@ -54,7 +54,7 @@
   [ "${count}" -eq 2 ]
 }
 
-@test "preserves filenames" {
+@test "should preserve original file extensions in output filenames" {
   mkdir test
   ./lit.sh ./lit.sh.md
   touch test/script.py.md
@@ -64,7 +64,7 @@
   [ new_file ]
 }
 
-@test "compiles multiple files" {
+@test "should compile multiple files" {
   mkdir test
   ./lit.sh ./lit.sh.md
   touch test/first.py.md
@@ -75,7 +75,7 @@
   [ "${count}" -eq 4 ]
 }
 
-@test "selects files to compile based on a file glob" {
+@test "should select files to compile based on a file glob" {
   mkdir test
   ./lit.sh ./lit.sh.md
   touch test/first.py.md
@@ -87,7 +87,7 @@
   [ "${count}" -eq 5 ]
 }
 
-@test "removes Markdown and preserves code" {
+@test "should remove Markdown and preserve code" {
   mkdir test
   markdown=$'# a heading\nsome text\n```\nsome code\n```'
   printf "${markdown}" >> test/script.py.md
@@ -98,7 +98,7 @@
   [ "${code}" == "some code" ]
 }
 
-@test "allows language annotation after backticks" {
+@test "should allow language annotation after backticks" {
   mkdir test
   markdown=$'# a heading\nsome text\n```javascript\nsome code\n```'
   printf "${markdown}" >> test/script.py.md
@@ -109,7 +109,7 @@
   [ "${code}" == "some code" ]
 }
 
-@test "compiles multiple fenced code blocks" {
+@test "should compile multiple fenced code blocks" {
   mkdir test
   first=$'# a heading\nsome text\n```\nsome code\n```'
   second=$'# a heading\nsome text\n```\nsome more code\n```'
