@@ -1,1 +1,3 @@
 You are totally absolutely free to do whatever you want with this script with absolutely no strings attached so long as you pinky swear that you'll try to write great documentation for your code, because I AM GETTING SOOOOOOO SICK OF THIS SHIT. If you can't promise to at least make some kind of effort, then the alternate license takes effect, wherein I own all your code and am entitled to all your income in perpetuity.
+
+(At your discretion, you may alternately consider this software to be dual licensed under the terms of the [Unlicense](UNLICENSE).)
