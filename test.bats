@@ -11,9 +11,9 @@ teardown() {
 
 @test "live compilation script should match Markdown source" {
   git checkout lit.sh
-  pre="$(less test/lit.sh)"
+  pre="$(less lit.sh)"
   ./lit.sh lit.sh.md
-  post="$(less test/lit.sh)"
+  post="$(less lit.sh)"
   [ "${pre}" == "${post}" ]
 }
 
