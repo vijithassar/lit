@@ -10,7 +10,7 @@
   # read newly compiled version of the live script
   post="$(less test/lit.sh)"
   rm -rf ./test
-  [ "$pre" == "$post" ]
+  [ "${pre}" == "${post}" ]
 }
 
 @test "does not compile files that end in .md without a double extension" {
@@ -20,7 +20,7 @@
   ./lit.sh "./test/*"
   count="$(find test -type f | wc -l)"
   rm -rf ./test
-  [ "$count" -eq 1 ]
+  [ "${count}" -eq 1 ]
 }
 
 @test "does not compile files that end in a normal file extension" {
@@ -31,7 +31,7 @@
   ./lit.sh "./test/*"
   count="$(find test -type f | wc -l)"
   rm -rf ./test
-  [ "$count" -eq 2 ]
+  [ "${count}" -eq 2 ]
 }
 
 @test "does not compile non-Markdown files that end in a double file extension" {
@@ -41,7 +41,7 @@
   ./lit.sh "./test/*"
   count="$(find test -type f | wc -l)"
   rm -rf ./test
-  [ "$count" -eq 1 ]
+  [ "${count}" -eq 1 ]
 }
 
 @test "compiles Markdown files that end in a double file extension" {
@@ -51,5 +51,5 @@
   ./lit.sh "./test/*"
   count="$(find test -type f | wc -l)"
   rm -rf ./test
-  [ "$count" -eq 2 ]
+  [ "${count}" -eq 2 ]
 }
