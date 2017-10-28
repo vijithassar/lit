@@ -54,6 +54,16 @@
   [ "${count}" -eq 2 ]
 }
 
+@test "preserves filenames" {
+  mkdir test
+  ./lit.sh ./lit.sh.md
+  touch test/script.py.md
+  ./lit.sh "./test/*"
+  new_file="$([ -e test/script.py ])"
+  rm -rf test
+  [ new_file ]
+}
+
 @test "compiles multiple files" {
   mkdir test
   ./lit.sh ./lit.sh.md
