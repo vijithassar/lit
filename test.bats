@@ -54,6 +54,29 @@
   [ "${count}" -eq 2 ]
 }
 
+@test "compiles multiple files" {
+  mkdir test
+  ./lit.sh ./lit.sh.md
+  touch test/first.py.md
+  touch test/second.py.md
+  ./lit.sh "./test/*"
+  count="$(find test -type f | wc -l)"
+  rm -rf ./test
+  [ "${count}" -eq 4 ]
+}
+
+@test "selects files to compile based on a file glob" {
+  mkdir test
+  ./lit.sh ./lit.sh.md
+  touch test/first.py.md
+  touch test/second.py.md
+  touch test/third.js.md
+  ./lit.sh "./test/*.py.md"
+  count="$(find test -type f | wc -l)"
+  rm -rf ./test
+  [ "${count}" -eq 5 ]
+}
+
 @test "removes Markdown and preserves code" {
   mkdir test
   markdown=$'# a heading\nsome text\n```\nsome code\n```'
