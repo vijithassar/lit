@@ -73,6 +73,15 @@ However:
 - Nonlinear compiling introduces an irreversible dependency on the compiler; the nonlinear logic added by the literate programming tool effectively becomes part of the application code.
 - If you really want nonlinear compiling, you are free to implement it in your build process by using [grunt-concat](https://github.com/gruntjs/grunt-contrib-concat) or similar – that is, it is still possible using this tool if you just use separate files for each block and concatenate elsewhere. You may not like the idea of making your build process part of your application logic, but that's not actually so different from doing the same using your literate programming tool.
 
+# Tests #
+
+Unit tests are written with [bats](https://github.com/sstephenson/bats).
+
+```bash
+# run unit tests with bats
+$ bats test.bats
+```
+
 # Miscellaneous #
 
 This lil guy:
