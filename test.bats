@@ -53,3 +53,39 @@
   rm -rf ./test
   [ "${count}" -eq 2 ]
 }
+
+@test "removes Markdown and preserves code" {
+  mkdir test
+  markdown=$'# a heading\nsome text\n```\nsome code\n```'
+  printf "${markdown}" >> test/script.py.md
+  ./lit.sh ./lit.sh.md
+  ./lit.sh ./test/script.py.md
+  code="$(less ./test/script.py)"
+  rm -rf test
+  [ "${code}" == "some code" ]
+}
+
+@test "allows language annotation after backticks" {
+  mkdir test
+  markdown=$'# a heading\nsome text\n```javascript\nsome code\n```'
+  printf "${markdown}" >> test/script.py.md
+  ./lit.sh ./lit.sh.md
+  ./lit.sh ./test/script.py.md
+  code="$(less ./test/script.py)"
+  rm -rf test
+  [ "${code}" == "some code" ]
+}
+
+@test "compiles multiple fenced code blocks" {
+  mkdir test
+  first=$'# a heading\nsome text\n```\nsome code\n```'
+  second=$'# a heading\nsome text\n```\nsome more code\n```'
+  expected=$'some code\nsome more code'
+  printf "${first}" >> test/script.py.md
+  printf "${second}" >> test/script.py.md
+  ./lit.sh ./lit.sh.md
+  ./lit.sh ./test/script.py.md
+  code="$(less ./test/script.py)"
+  rm -rf test
+  [ "${code}" == "${expected}" ]
+}
