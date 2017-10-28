@@ -17,6 +17,14 @@ teardown() {
   [ "${pre}" == "${post}" ]
 }
 
+@test "compiled example should match Markdown source" {
+  git checkout hello-world.js
+  pre="$(less hello-world.js)"
+  ./lit.sh hello-world.js.md
+  post="$(less hello-world.js)"
+  [ "${pre}" == "${post}" ]
+}
+
 @test "should not compile files that end in .md without a double extension" {
   touch test/README.md
   ./lit.sh "./test/*"
