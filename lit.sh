@@ -74,19 +74,21 @@ function configure_awk_command {
   local awk_command_base
   local awk_command
   if [ -z "${before}" ]; then
-    action="next"
+    # jump to next code block
+    action="next";
   else
-    action="print"
+    # comment out code blocks
+    action="{ print \"${before}\", \$0, \"${after}\" }; next;"
   fi
   awk_command_base='
-      # if it is a code block
+      # count code blocks
       if (/^```/) {
         # increase backtick counter
         i++;
-        # jump to next command
-        action;
+        # handle comments
+        action
       }
-      # print
+      # print code
       if ( i % 2 == 1) {
         print;
       }
