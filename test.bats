@@ -113,3 +113,39 @@ teardown() {
   code="$(less ./test/script.py)"
   [ "${code}" == "${expected}" ]
 }
+
+@test "should preserve line positions using line comments with the --before argument" {
+  input=$'# a heading\nsome text\n```\nsome code\n```'
+  expected=$'// # a heading\n// some text\n// ```\nsome code\n// ```'
+  printf "${input}" >> test/script.js.md
+  ./lit.sh --input ./test/script.js.md --before "//"
+  code="$(less ./test/script.js)"
+  [ "${code}" == "${expected}" ]
+}
+
+@test "should preserve line positions using line comments with the -b argument" {
+  input=$'# a heading\nsome text\n```\nsome code\n```'
+  expected=$'// # a heading\n// some text\n// ```\nsome code\n// ```'
+  printf "${input}" >> test/script.js.md
+  ./lit.sh --input ./test/script.js.md -b "//"
+  code="$(less ./test/script.js)"
+  [ "${code}" == "${expected}" ]
+}
+
+@test "should preserve line positions using block comments with the --after argument" {
+  input=$'# a heading\nsome text\n```\nsome code\n```'
+  expected=$'/* # a heading */\n/* some text */\n/* ``` */\nsome code\n/* ``` */'
+  printf "${input}" >> test/style.css.md
+  ./lit.sh --input ./test/style.css.md --before "/*" --after "*/"
+  code="$(less ./test/style.css)"
+  [ "${code}" == "${expected}" ]
+}
+
+@test "should preserve line positions using block comments with the -a argument" {
+  input=$'# a heading\nsome text\n```\nsome code\n```'
+  expected=$'/* # a heading */\n/* some text */\n/* ``` */\nsome code\n/* ``` */'
+  printf "${input}" >> test/style.css.md
+  ./lit.sh --input ./test/style.css.md --before "/*" -a "*/"
+  code="$(less ./test/style.css)"
+  [ "${code}" == "${expected}" ]
+}
