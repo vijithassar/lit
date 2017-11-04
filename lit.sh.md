@@ -119,14 +119,14 @@ function configure_awk_command {
         # increase backtick counter
         i++;
         # handle comments
-        action
+        REPLACE
       }
       # print code
       if ( i % 2 == 1) {
         print;
       }
   '
-  awk_command="${awk_command_base/action/$action}"
+  awk_command="${awk_command_base/REPLACE/$action}"
   echo "${awk_command}"
 }
 ```
