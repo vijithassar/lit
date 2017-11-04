@@ -73,12 +73,16 @@ function configure_awk_command {
   local action
   local awk_command_base
   local awk_command
+  # jump to next code block
   if [ -z "${before}" ]; then
-    # jump to next code block
     action="next;"
+  # comment out code blocks
   else
-    # comment out code blocks
-    action="{ print \"${before}\", \$0, \"${after}\" };"
+    if [ -z "${after}" ]; then
+      action="{ print \"${before}\", \$0 };"
+    else
+      action="{ print \"${before}\", \$0, \"${after}\" };"
+    fi
   fi
   awk_command_base='
       # count code blocks
