@@ -70,19 +70,29 @@ function test_filename {
   fi
 }
 function configure_awk_command {
-  echo '
+  local action
+  local awk_command_base
+  local awk_command
+  if [ -z "${before}" ]; then
+    action="next"
+  else
+    action="print"
+  fi
+  awk_command_base='
       # if it is a code block
       if (/^```/) {
         # increase backtick counter
         i++;
         # jump to next command
-        next;
+        action;
       }
       # print
       if ( i % 2 == 1) {
         print;
       }
   '
+  awk_command="${awk_command_base/action/$action}"
+  echo "${awk_command}"
 }
 # strip Markdown
 function process_lines {
