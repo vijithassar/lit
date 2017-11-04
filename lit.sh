@@ -69,12 +69,8 @@ function test_filename {
     return 1
   fi
 }
-# strip Markdown
-function process_lines {
-  # first argument is filename
-  local file=$1
-  # iterate through lines with awk
-  local awk_command='
+function configure_awk_command {
+  echo '
       # if it is a code block
       if (/^```/) {
         # increase backtick counter
@@ -87,7 +83,13 @@ function process_lines {
         print;
       }
   '
+}
+# strip Markdown
+function process_lines {
+  # first argument is filename
+  local file=$1
   # run awk command
+  local awk_command=$(configure_awk_command)
   local processed=$(awk {"$awk_command"} $file)
   # return code blocks only
   echo "$processed"

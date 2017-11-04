@@ -97,17 +97,13 @@ function test_filename {
 }
 ```
 
-# Parse Markdown Lines #
+# awk
 
-This function uses a needlessly verbose version of [Rich Traube](https://github.com/trauber)'s clever [one-line awk routine](https://gist.github.com/trauber/4955706) to walk through the lines in the Markdown document and pass them into the output file as appropriate.
+The bulk of the logic here is performed by [awk](https://www.gnu.org/software/gawk/manual/gawk.html), specifically a needlessly verbose version of [Rich Traube](https://github.com/trauber)'s clever [one-line routine](https://gist.github.com/trauber/4955706) which counts lines based on the [fenced code blocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) of [GitHub-Flavored Markdown](https://github.github.com/gfm/).
 
 ```bash
-# strip Markdown
-function process_lines {
-  # first argument is filename
-  local file=$1
-  # iterate through lines with awk
-  local awk_command='
+function configure_awk_command {
+  echo '
       # if it is a code block
       if (/^```/) {
         # increase backtick counter
@@ -120,7 +116,20 @@ function process_lines {
         print;
       }
   '
+}
+```
+
+# Parse Markdown Lines #
+
+Call the awk command on the input.
+
+```bash
+# strip Markdown
+function process_lines {
+  # first argument is filename
+  local file=$1
   # run awk command
+  local awk_command=$(configure_awk_command)
   local processed=$(awk {"$awk_command"} $file)
   # return code blocks only
   echo "$processed"
