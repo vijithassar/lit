@@ -111,19 +111,21 @@ function configure_awk_command {
     action="next;"
   else
     # comment out code blocks
-    action="{ print \"${before}\", \$0, \"${after}\" }; next;"
+    action="{ print \"${before}\", \$0, \"${after}\" };"
   fi
   awk_command_base='
       # count code blocks
       if (/^```/) {
         # increase backtick counter
         i++;
-        # handle comments
         REPLACE
+        next;
       }
       # print code
-      if ( i % 2 == 1) {
+      if ( i % 2 != 0 ) {
         print;
+      } else {
+        REPLACE
       }
   '
   awk_command="${awk_command_base/REPLACE/$action}"
