@@ -123,7 +123,7 @@ function configure_awk_command {
       }
       # print code
       if ( i % 2 != 0 ) {
-        print;
+        print $0;
       } else {
         REPLACE
       }
