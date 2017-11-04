@@ -95,7 +95,7 @@ function configure_awk_command {
         REPLACE
       }
   '
-  awk_command="${awk_command_base/REPLACE/$action}"
+  awk_command="${awk_command_base//REPLACE/$action}"
   echo "${awk_command}"
 }
 # strip Markdown
