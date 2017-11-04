@@ -5,6 +5,48 @@ The shebang indicates that this script should be executed by the bash program.
 ```bash
 #!/bin/bash
 
+set -e
+```
+
+# Arguments
+
+Use a loop to read input arguments to the script and set variables which control behavior.
+
+```bash
+
+# default values
+files="./*.*.md"
+before=''
+after=''
+
+# as long as there is at least one more argument, keep looping
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+        # input files
+        -i|--input)
+        shift
+        files="$1"
+        ;;
+        # demarcate start of block or line comment
+        -b|--before)
+        shift
+        before="$1"
+        ;;
+        # end block comment
+        -a|--after)
+        shift
+        after="$1"
+        ;;
+        *)
+        # report unrecognized options
+        echo "unknown option '$key'"
+        exit 1
+        ;;
+    esac
+    # shift after checking all the cases to get the next option
+    shift
+done
 ```
 
 # Filenames #
@@ -95,7 +137,7 @@ function which can be called on any file to compile its output.
 function compile {
   # first argument is filename
   local file=$1
-  # conver to the new filename
+  # convert to the new filename
   local new_filename=$(remove_extension $file)
   # log message
   echo "compiling $file > $new_filename"
@@ -104,23 +146,6 @@ function compile {
   # save results to file
   echo "$compiled" > $new_filename
 }
-```
-
-# Input Argument #
-
-Everything up until this point has been wrapped in a reusable function, but now it's time to define the script logic.
-
-First, grab the files specified by an optional filename pattern (or alternatively the files in the current working directory).
-
-```bash
-# if the first argument exists, use it as the
-# target directory
-if [ "$1" ]; then
-  files=$1
-# otherwise load all files in current directory
-else
-  files="."
-fi
 ```
 
 # Execution Loop #

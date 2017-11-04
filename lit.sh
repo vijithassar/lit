@@ -1,5 +1,40 @@
 #!/bin/bash
 
+set -e
+
+# default values
+files="./*.*.md"
+before=''
+after=''
+
+# as long as there is at least one more argument, keep looping
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+        # input files
+        -i|--input)
+        shift
+        files="$1"
+        ;;
+        # demarcate start of block or line comment
+        -b|--before)
+        shift
+        before="$1"
+        ;;
+        # end block comment
+        -a|--after)
+        shift
+        after="$1"
+        ;;
+        *)
+        # report unrecognized options
+        echo "unknown option '$key'"
+        exit 1
+        ;;
+    esac
+    # shift after checking all the cases to get the next option
+    shift
+done
 # given a filename ending in .md, return the base filename
 function remove_extension {
   local file=$1
@@ -61,7 +96,7 @@ function process_lines {
 function compile {
   # first argument is filename
   local file=$1
-  # conver to the new filename
+  # convert to the new filename
   local new_filename=$(remove_extension $file)
   # log message
   echo "compiling $file > $new_filename"
@@ -70,14 +105,6 @@ function compile {
   # save results to file
   echo "$compiled" > $new_filename
 }
-# if the first argument exists, use it as the
-# target directory
-if [ "$1" ]; then
-  files=$1
-# otherwise load all files in current directory
-else
-  files="."
-fi
 # loop through files
 for file in $(ls $files)
 do
