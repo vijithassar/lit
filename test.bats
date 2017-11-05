@@ -43,7 +43,7 @@ teardown() {
 @test "skips non-Markdown files that end in a double file extension" {
   touch test/script.py.js
   ./lit.sh --input "./test/*"
-  count="$(find test/ -type f | wc -l)"
+  count="$(find test -type f | wc -l)"
   [ "${count}" -eq 1 ]
 }
 
@@ -115,6 +115,14 @@ teardown() {
   touch test/first.py.md
   touch test/second.py.md
   ./lit.sh --input "./test/*.py.md" --output test/subdirectory
+  count="$(find test/subdirectory/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
+}
+
+@test "uses existing paths if no output directory is specified" {
+  mkdir test/subdirectory
+  touch test/subdirectory/first.py.md
+  ./lit.sh --input "./test/subdirectory/*.py.md"
   count="$(find test/subdirectory/ -type f | wc -l)"
   [ "${count}" -eq 2 ]
 }
