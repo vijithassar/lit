@@ -4,9 +4,29 @@ a little preprocessor for literate programming
 
 ![fire](https://cloud.githubusercontent.com/assets/3488572/10808206/272feea0-7dbf-11e5-8d49-f6134a900530.png)
 
+# Quick Start
+
+By default, strip out all Markdown content from your literate programming files:
+
+```bash
+# strip Markdown content from literate programming
+# files in the current directory, leaving only
+# executable code in parallel files
+$ ./lit.sh
+```
+
+Alternatively (and **highly recommended** for development purposes), you can just *comment out* the Markdown, thereby preserving the original line numbers for more accurate debugging:
+
+```bash
+# comment out Markdown content from literate programming
+# files in the current directory with hash style inline
+# comments as used in e.g. Python, Ruby, or Bash
+$ ./lit.sh --before "#"
+```
+
 # Overview #
 
-[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. This script is a tiny text preprocessor based on [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly send the content of the Markdown code blocks into parallel code-only files. For a quick illustration, compare the [annotated source](hello-world.js.md) of the included hello-world script to its [compiled output](hello-world.js).
+[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the increasingly sensible idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. This script is a tiny text preprocessor built with [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) with beautiful rich annotations (links! pictures! whatever!) and then quickly send the content of the Markdown code blocks into parallel executable files. For a quick illustration, compare the [annotated source](hello-world.js.md) of the included hello-world script to its [compiled output](hello-world.js).
 
 # Installation?!? #
 
@@ -14,42 +34,71 @@ Feel free to clone this repository, but you can also just [download the script](
 
 # Usage #
 
-To compile literate source code, simply run the script.
+To compile literate source code, simply run the script. By default, it will compile any Markdown files it finds in the current directory.
 
 ```bash
 # compile literate code files
 $ ./lit.sh
 ```
 
-The script takes one optional argument, which is a UNIX file pattern. If you don't supply one, it will compile any Markdown files it finds in the current directory.
-
-```bash
-# compile literate code files in the current directory
-$ ./lit.sh
-
-# compile literate code files in the src subdirectory
-$ ./lit.sh ./src/*
-```
-
-Bash sometimes gets weird when it's passed file patterns as script arguments, so if you're seeing unexpected behavior, try quoting the file pattern and passing it as a string instead.
-
-```bash
-# compile literate code files in the src subdirectory
-$ ./lit.sh "./src/*"
-```
-
-
-In addition to your file pattern, filenames must contain two extensions in order for the compiler to operate on them. The first should be the regular extension for the language you're compiling to, and the second should be the Markdown .md extension.
+Filenames must contain **two extensions** in order for the compiler to operate on them. The first should be the regular extension for the language you're compiling to (`.py`, `.js`, etc), and the second should be the Markdown `.md` extension.
 
 For example, these filenames would be compiled:
 
-- myscript.js.md
-- some_program.py.md
+- `myscript.js.md`
+- `some_program.py.md`
 
 These would not be compiled:
 
-- myscript.js
-- README.md
+- `myscript.js`
+- `README.md`
+
+## Arguments
+
+### Input
+
+The `--input` or `-i` argument can be used to specify a path or file glob within which to find files to compile. File globs should be quoted strings. If this argument omitted, all literate code files in the current working directory will be compiled.
+
+```bash
+# compile literate code files in the ./source directory
+$ ./lit.sh --input ./source
+```
+
+```bash
+# compile literate Python files in the ./source directory
+$ ./lit.sh --input "./source/*.py.md"
+```
+
+### Output
+
+The `--output` or `-o` argument can be used to specify a path where the compiled files will be written. If this argument is omitted, the compiled files will be written in parallel next to the original literate code files.
+
+```bash
+# compile literate code files in the current directory
+# and write to the ./build directory
+$ ./lit.sh --output ./build
+```
+
+### Comments
+
+Rather than simply *stripping* Markdown content entirely, it can be advantageous to just *comment it out* instead, since that means all code in the output file appears on the same line as in the original literate Markdown source, and thus errors and messages can be accurately reported by debuggers, loggers, compilers, and other such development tools. To comment out Markdown content instead of stripping it, use the `--before` or `-b` flags, followed by the character(s) used to denote inline code comments for the language you are compiling.
+
+This is **definitely the recommended way to use this tool**, but it can't be the default behavior because you need to specify the inline comment delimiter for your language in order for it to work.
+
+```bash
+# comment out Markdown content from literate programming
+# files in the current directory with hash style inline
+# comments as used in e.g. Python, Ruby, or Bash
+$ ./lit.sh --before "#"
+```
+
+You can also comment out Markdown content using a *block* commenting style by supplying the `--after` or `-a` flags, followed by the characters used to denote the end of a block comment in the language you are compiling. However, inline comments are preferable, because block comments can be broken if any of your Markdown content includes the character sequence that denotes the end of a block comment. This option is included mostly to allow "literate CSS" files, since CSS does not have a single-line comment syntax.
+
+```bash
+# comment out Markdown content from "literate CSS" files
+# in the current directory using block comment syntax
+$ ./lit.sh --input "./*.css.md" --before "/*" --after "*/"
+```
 
 # Advantages #
 
@@ -60,18 +109,17 @@ These would not be compiled:
 
 # Disadvantages #
 
-- This will probably [break function folding](https://github.com/atom/atom/issues/8879) in your code editor of choice.
-- Line numbers in the source will differ from line numbers reported by debuggers. Source maps would solve this problem for JavaScript and CSS, but haven't yet been implemented because unfortunately equivalents don't exist for all the other languages you might write.
+- This might [break function folding](https://github.com/atom/atom/issues/8879) if your code editor of choice assumes function structure is the same thing as indentation.
 
 # Pedantry #
 
-This isn't quite true to the original conception of literate programming, which particularly advocated for nonlinear compiling so source code can be structured for humans and then reorganized for execution.
+This isn't quite true to the original conception of literate programming, which also advocated for nonlinear compiling so source code can be structured for humans and then reorganized for execution.
 
 However:
 
 - Most modern programming languages mitigate the importance of this feature by allowing functions and objects to be defined in memory fairly freely and then executed later.
 - Nonlinear compiling introduces an irreversible dependency on the compiler; the nonlinear logic added by the literate programming tool effectively becomes part of the application code.
-- If you really want nonlinear compiling, you are free to implement it in your build process by using [grunt-concat](https://github.com/gruntjs/grunt-contrib-concat) or similar – that is, it is still possible using this tool if you just use separate files for each block and concatenate elsewhere. You may not like the idea of making your build process part of your application logic, but that's not actually so different from doing the same using your literate programming tool.
+- If you really want nonlinear compiling, you are free to implement it in your build process by using [grunt-concat](https://github.com/gruntjs/grunt-contrib-concat) or similar – that is, it is still possible using this tool if you just use separate files for each block and concatenate elsewhere. You may not like the idea of making your build process part of your application logic, but that's not actually so different from doing the same using your literate programming tool, now is it?
 
 # Tests #
 
@@ -89,6 +137,6 @@ This lil guy:
 - was deeply inspired by [Literate CoffeeScript](http://coffeescript.org/#literate)
 - aims to be much simpler than the powerful [Node.js literate-programming compiler](https://github.com/jostylr/literate-programming)
 - uses GitHub-style ["fenced code blocks"](https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks) delimited with backticks instead of the space-driven notation used by [traditional Markdown](https://daringfireball.net/projects/markdown/)
-- is almost entirely based on [Rich Traube's one-liner for awk](https://gist.github.com/trauber/4955706); I've just added a few convenience wrappers
+- is based on a modified version of [Rich Traube's one-liner for awk](https://gist.github.com/trauber/4955706)
 - is minimalist and will remain that way so it can be an unobtrusive part of other your other build processes
 - is itself written with [heavily annotated source code](https://github.com/vijithassar/lit/blob/master/lit.sh.md) and [recursively compiles itself](https://github.com/vijithassar/lit/commit/3434fd18772bec44c19a191bb5592624844de255), which is ridiculous and a huge pain in the ass but it's too late now!
