@@ -16,6 +16,7 @@ Use a loop to read command line arguments to the script and set variables which 
 
 # default values
 files="./*.*.md"
+output_directory=""
 before=''
 after=''
 
@@ -27,6 +28,11 @@ while [[ ${#} -gt 0 ]]; do
         -i|--input)
         shift
         files="${1}"
+        ;;
+        # output files
+        -o|--output)
+        shift
+        output_directory="${1}"
         ;;
         # demarcate start of block or line comment
         -b|--before)
@@ -173,7 +179,11 @@ function compile {
   # first argument is filename
   file=$1
   # convert to the new filename
-  new_filename=$(remove_extension "${file}")
+  if [ ! -z "${output_directory}" ]; then
+    new_filename="${output_directory}"/$(basename $(remove_extension "${file}"))
+  else
+    new_filename=$(remove_extension "${file}")
+  fi
   # log message
   echo "compiling ${file} > ${new_filename}"
   # parse file content and remove Markdown comments
@@ -184,6 +194,14 @@ function compile {
 ```
 
 # Execution Loop #
+
+Create the output directory if it doesn't already exist.
+
+```bash
+if [ ! -z "${output_directory}" ] && [ ! -d "${output_directory}" ]; then
+  mkdir -p "${output_directory}"
+fi
+```
 
 For each file, test the filename to see if it looks like a literate code file, and if so, compile it.
 
