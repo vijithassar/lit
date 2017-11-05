@@ -10,7 +10,7 @@ set -e
 
 # Arguments
 
-Use a loop to read input arguments to the script and set variables which control behavior.
+Use a loop to read command line arguments to the script and set variables which control the desired compilation behaviors.
 
 ```bash
 
@@ -65,14 +65,12 @@ function remove_extension {
   local new_length=${old_length}-${extension_length}
   # cut substring for new filename
   local new_filename=${file:0:$new_length}
-  # return the new string
+  # output the new string
   echo "${new_filename}"
 }
 ```
 
-We also need the ability to test a filename to see if it matches the conventions we're assuming for literate programming, which is to say, we need to ensure that it both has double extensions to signify a programming language wrapped in Markdown and ends with .md as the second.
-
-See what's going on? We're grouping this code along with the other filename parsing logic even though we actually use it in the main execution loop way at the end. This, right here, is literate programming!
+We also need the ability to test a filename to see if it matches the conventions we're assuming for literate programming, which is to say, we need to ensure that it both has double extensions to signify a programming language wrapped in Markdown and also ends with .md as the second extension.
 
 ```bash
 # make sure a filename is safe to process
@@ -99,40 +97,44 @@ function test_filename {
 
 # awk
 
-The bulk of the logic here is performed by [awk](https://www.gnu.org/software/gawk/manual/gawk.html), specifically a needlessly verbose version of [Rich Traube](https://github.com/trauber)'s clever [one-line routine](https://gist.github.com/trauber/4955706) which counts lines based on the [fenced code blocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) of [GitHub-Flavored Markdown](https://github.github.com/gfm/).
+The bulk of the logic here is performed by [awk](https://www.gnu.org/software/gawk/manual/gawk.html), specifically a lightly modified and needlessly verbose version of [Rich Traube](https://github.com/trauber)'s clever [one-line routine](https://gist.github.com/trauber/4955706) which counts lines based on the [fenced code blocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) of [GitHub-Flavored Markdown](https://github.github.com/gfm/).
+
+The awk command is assembled in Bash as a string, with a few slight modifications made based on the input arguments which determine whether the Markdown content will be commented out using specified delimiters or stripped entirely. This string will later be run by awk in a subshell.
 
 ```bash
 function configure_awk_command {
   local action
   local awk_command_base
   local awk_command
-  # jump to next code block
+  # if there's no delimiter, jump to next line for Markdown content
   if [ -z "${before}" ]; then
     action="next;"
-  # comment out code blocks
+  # if a delimiter is provided in the --before flag, comment out Markdown content
   else
+    # if there's no --after flag, use a line comment
     if [ -z "${after}" ]; then
       action="{ print \"${before}\", \$0 };"
+    # if there's an --after flag, use a block comment
     else
       action="{ print \"${before}\", \$0, \"${after}\" };"
     fi
   fi
+  # base command structure
   awk_command_base='
-      # count code blocks
       if (/^```/) {
-        # increase backtick counter
         i++;
         REPLACE
         next;
       }
-      # print code
       if ( i % 2 != 0 ) {
         print $0;
       } else {
         REPLACE
       }
   '
+  # substitute desired actions in the command string
   awk_command="${awk_command_base//REPLACE/$action}"
+  # output configured awk command
   echo "${awk_command}"
 }
 ```
@@ -159,8 +161,7 @@ function process_lines {
 
 # Compile A Single File #
 
-Wrap the awk routine and the filename logic into a single
-function which can be called on any file to compile its output.
+Wrap the awk command and the filename logic into a single function which can be called on any file to compile its output.
 
 ```bash
 # compile Markdown code blocks in a file using awk
@@ -183,7 +184,7 @@ function compile {
 
 # Execution Loop #
 
-For each file, test the filename to see if it looks like a literate code file. If it does, compile it.
+For each file, test the filename to see if it looks like a literate code file, and if so, compile it.
 
 ```bash
 # loop through files
@@ -196,5 +197,3 @@ do
   fi
 done
 ```
-
-Okay, that's it! Hope you had fun.
