@@ -102,6 +102,7 @@ The bulk of the logic here is performed by [awk](https://www.gnu.org/software/ga
 The awk command is assembled in Bash as a string, with a few slight modifications made based on the input arguments which determine whether the Markdown content will be commented out using specified delimiters or stripped entirely. This string will later be run by awk in a subshell.
 
 ```bash
+# swap substrings in a string to produce an awk command
 function configure_awk_command {
   local markdown_action
   local awk_command_base
@@ -144,7 +145,7 @@ function configure_awk_command {
 Call the awk command on the input.
 
 ```bash
-# strip Markdown
+# handle Markdown content in an input file
 function process_lines {
   local awk_command
   local processed
@@ -164,7 +165,7 @@ function process_lines {
 Wrap the awk command and the filename logic into a single function which can be called on any file to compile its output.
 
 ```bash
-# compile Markdown code blocks in a file using awk
+# routine to compile a single file
 function compile {
   local file
   local new_filename

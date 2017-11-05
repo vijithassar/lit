@@ -69,6 +69,7 @@ function test_filename {
     return 1
   fi
 }
+# swap substrings in a string to produce an awk command
 function configure_awk_command {
   local markdown_action
   local awk_command_base
@@ -104,7 +105,7 @@ function configure_awk_command {
   # output configured awk command
   echo "${awk_command}"
 }
-# strip Markdown
+# handle Markdown content in an input file
 function process_lines {
   local awk_command
   local processed
@@ -117,7 +118,7 @@ function process_lines {
   # return code blocks only
   echo "${processed}"
 }
-# compile Markdown code blocks in a file using awk
+# routine to compile a single file
 function compile {
   local file
   local new_filename
