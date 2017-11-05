@@ -70,20 +70,20 @@ function test_filename {
   fi
 }
 function configure_awk_command {
-  local action
+  local markdown_action
   local awk_command_base
   local awk_command
   # if there's no delimiter, jump to next line for Markdown content
   if [ -z "${before}" ]; then
-    action="next;"
+    markdown_action="next;"
   # if a delimiter is provided in the --before flag, comment out Markdown content
   else
     # if there's no --after flag, use a line comment
     if [ -z "${after}" ]; then
-      action="{ print \"${before}\", \$0 };"
+      markdown_action="{ print \"${before}\", \$0 };"
     # if there's an --after flag, use a block comment
     else
-      action="{ print \"${before}\", \$0, \"${after}\" };"
+      markdown_action="{ print \"${before}\", \$0, \"${after}\" };"
     fi
   fi
   # base command structure
@@ -100,7 +100,7 @@ function configure_awk_command {
       }
   '
   # substitute desired actions in the command string
-  awk_command="${awk_command_base//REPLACE/$action}"
+  awk_command="${awk_command_base//REPLACE/$markdown_action}"
   # output configured awk command
   echo "${awk_command}"
 }
