@@ -111,6 +111,21 @@ $ ./lit.sh --input "./*.css.md" --before "/*" --after "*/"
 
 - This might [break function folding](https://github.com/atom/atom/issues/8879) if your code editor of choice assumes function structure is the same thing as indentation.
 
+# Tests #
+
+Unit tests are written with [bats](https://github.com/sstephenson/bats).
+
+```bash
+# run unit tests with bats
+$ bats test.bats
+```
+
+# Ecosystem #
+
+- [Docco](http://ashkenas.com/docco/) and its many variants render literate source code into beautiful browsable HTML, in what is arguably the inverse complement to the operation performed by this compiler
+- [Blaze](https://github.com/0atman/blaze) is a clever literate programming tool which optimizes for *execution* instead of *compilation*, allowing you to send Markdown files directly into any language of your choosing
+- [CoffeeScript](http://coffeescript.org) and [Haskell](https://www.haskell.org/) support literate programming natively and do not need any additional tooling!
+
 # Pedantry #
 
 This isn't quite true to the original conception of literate programming, which also advocated for nonlinear compiling so source code can be structured for humans and then reorganized for execution.
@@ -120,15 +135,6 @@ However:
 - Most modern programming languages mitigate the importance of this feature by allowing functions and objects to be defined in memory fairly freely and then executed later.
 - Nonlinear compiling introduces an irreversible dependency on the compiler; the nonlinear logic added by the literate programming tool effectively becomes part of the application code.
 - If you really want nonlinear compiling, you are free to implement it in your build process by using [grunt-concat](https://github.com/gruntjs/grunt-contrib-concat) or similar – that is, it is still possible using this tool if you just use separate files for each block and concatenate elsewhere. You may not like the idea of making your build process part of your application logic, but that's not actually so different from doing the same using your literate programming tool, now is it?
-
-# Tests #
-
-Unit tests are written with [bats](https://github.com/sstephenson/bats).
-
-```bash
-# run unit tests with bats
-$ bats test.bats
-```
 
 # Miscellaneous #
 
