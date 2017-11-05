@@ -69,6 +69,15 @@ teardown() {
   [ "${count}" -eq 4 ]
 }
 
+@test "compiles files in the current working directory" {
+  touch test/script.py.md
+  cd test
+  ../lit.sh
+  cd ..
+  count="$(find test/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
+}
+
 @test "selects files to compile based on a file glob provided via the --input long argument" {
   touch test/first.py.md
   touch test/second.py.md
