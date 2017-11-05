@@ -28,7 +28,7 @@ teardown() {
 @test "skips files that end in a single .md extension" {
   touch test/README.md
   ./lit.sh --input "./test/*"
-  count="$(find test -type f | wc -l)"
+  count="$(find test/ -type f | wc -l)"
   [ "${count}" -eq 1 ]
 }
 
@@ -36,21 +36,21 @@ teardown() {
   touch test/script.py
   touch test/script.js
   ./lit.sh --input "./test/*"
-  count="$(find test -type f | wc -l)"
+  count="$(find test/ -type f | wc -l)"
   [ "${count}" -eq 2 ]
 }
 
 @test "skips non-Markdown files that end in a double file extension" {
   touch test/script.py.js
   ./lit.sh --input "./test/*"
-  count="$(find test -type f | wc -l)"
+  count="$(find test/ -type f | wc -l)"
   [ "${count}" -eq 1 ]
 }
 
 @test "compiles Markdown files that end in a double file extension" {
   touch test/script.py.md
   ./lit.sh --input "./test/*"
-  count="$(find test -type f | wc -l)"
+  count="$(find test/ -type f | wc -l)"
   [ "${count}" -eq 2 ]
 }
 
@@ -65,7 +65,7 @@ teardown() {
   touch test/first.py.md
   touch test/second.py.md
   ./lit.sh --input "./test/*"
-  count="$(find test -type f | wc -l)"
+  count="$(find test/ -type f | wc -l)"
   [ "${count}" -eq 4 ]
 }
 
@@ -74,7 +74,7 @@ teardown() {
   touch test/second.py.md
   touch test/third.js.md
   ./lit.sh --input "./test/*.py.md"
-  count="$(find test -type f | wc -l)"
+  count="$(find test/ -type f | wc -l)"
   [ "${count}" -eq 5 ]
 }
 
@@ -83,8 +83,40 @@ teardown() {
   touch test/second.py.md
   touch test/third.js.md
   ./lit.sh -i "./test/*.py.md"
-  count="$(find test -type f | wc -l)"
+  count="$(find test/ -type f | wc -l)"
   [ "${count}" -eq 5 ]
+}
+
+@test "writes to an output directory based on a path provided via the --output long argument" {
+  touch test/first.py.md
+  touch test/second.py.md
+  ./lit.sh --input "./test/*.py.md" --output test/subdirectory/
+  count="$(find test/subdirectory/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
+}
+
+@test "writes to an output directory based on a path provided via the -o short argument" {
+  touch test/first.py.md
+  touch test/second.py.md
+  ./lit.sh --input "./test/*.py.md" -o test/subdirectory/
+  count="$(find test/subdirectory/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
+}
+
+@test "writes to nested subdirectories" {
+  touch test/first.py.md
+  touch test/second.py.md
+  ./lit.sh --input "./test/*.py.md" --output test/subdirectory/a/b
+  count="$(find test/subdirectory/a/b/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
+}
+
+@test "appends trailing slashes to output directories" {
+  touch test/first.py.md
+  touch test/second.py.md
+  ./lit.sh --input "./test/*.py.md" --output test/subdirectory
+  count="$(find test/subdirectory/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
 }
 
 @test "removes Markdown and preserves code" {
