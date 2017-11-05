@@ -9,7 +9,7 @@ teardown() {
   rm -rf test
 }
 
-@test "live compilation script should match Markdown source" {
+@test "live compilation script matches Markdown source" {
   git checkout lit.sh
   pre="$(less lit.sh)"
   ./lit.sh --input lit.sh.md
@@ -17,7 +17,7 @@ teardown() {
   [ "${pre}" == "${post}" ]
 }
 
-@test "compiled example should match Markdown source" {
+@test "compiled example matches Markdown source" {
   git checkout hello-world.js
   pre="$(less hello-world.js)"
   ./lit.sh --input hello-world.js.md
@@ -25,14 +25,14 @@ teardown() {
   [ "${pre}" == "${post}" ]
 }
 
-@test "should not compile files that end in .md without a double extension" {
+@test "skips files that end in a single .md extension" {
   touch test/README.md
   ./lit.sh --input "./test/*"
   count="$(find test -type f | wc -l)"
   [ "${count}" -eq 1 ]
 }
 
-@test "should not compile files that end in a single file extension" {
+@test "skips files that end in a single file extension" {
   touch test/script.py
   touch test/script.js
   ./lit.sh --input "./test/*"
@@ -40,28 +40,28 @@ teardown() {
   [ "${count}" -eq 2 ]
 }
 
-@test "should not compile non-Markdown files that end in a double file extension" {
+@test "skips non-Markdown files that end in a double file extension" {
   touch test/script.py.js
   ./lit.sh --input "./test/*"
   count="$(find test -type f | wc -l)"
   [ "${count}" -eq 1 ]
 }
 
-@test "should compile Markdown files that end in a double file extension" {
+@test "compiles Markdown files that end in a double file extension" {
   touch test/script.py.md
   ./lit.sh --input "./test/*"
   count="$(find test -type f | wc -l)"
   [ "${count}" -eq 2 ]
 }
 
-@test "should preserve original file extensions in output filenames" {
+@test "preserves original file extensions in output filenames" {
   touch test/script.py.md
   ./lit.sh --input "./test/*"
   new_file="$([ -e test/script.py ])"
   [ new_file ]
 }
 
-@test "should compile multiple files" {
+@test "compiles multiple files" {
   touch test/first.py.md
   touch test/second.py.md
   ./lit.sh --input "./test/*"
@@ -69,7 +69,7 @@ teardown() {
   [ "${count}" -eq 4 ]
 }
 
-@test "should select files to compile based on a file glob provided via the --input argument" {
+@test "selects files to compile based on a file glob provided via the --input long argument" {
   touch test/first.py.md
   touch test/second.py.md
   touch test/third.js.md
@@ -78,7 +78,7 @@ teardown() {
   [ "${count}" -eq 5 ]
 }
 
-@test "should select files to compile based on a file glob provided via the -i short argument" {
+@test "selects files to compile based on a file glob provided via the -i short argument" {
   touch test/first.py.md
   touch test/second.py.md
   touch test/third.js.md
@@ -87,7 +87,7 @@ teardown() {
   [ "${count}" -eq 5 ]
 }
 
-@test "should remove Markdown and preserve code" {
+@test "removes Markdown and preserves code" {
   markdown=$'# a heading\nsome text\n```\nsome code\n```'
   printf "${markdown}" >> test/script.py.md
   ./lit.sh --input ./test/script.py.md
@@ -95,7 +95,7 @@ teardown() {
   [ "${code}" == "some code" ]
 }
 
-@test "should allow language annotation after backticks" {
+@test "allows language annotation after backticks" {
   markdown=$'# a heading\nsome text\n```javascript\nsome code\n```'
   printf "${markdown}" >> test/script.py.md
   ./lit.sh --input ./test/script.py.md
@@ -103,7 +103,7 @@ teardown() {
   [ "${code}" == "some code" ]
 }
 
-@test "should compile multiple fenced code blocks" {
+@test "compiles multiple fenced code blocks" {
   first=$'# a heading\nsome text\n```\nsome code\n```'
   second=$'# a heading\nsome text\n```\nsome more code\n```'
   expected=$'some code\nsome more code'
@@ -114,7 +114,7 @@ teardown() {
   [ "${code}" == "${expected}" ]
 }
 
-@test "should preserve line positions using line comments with the --before argument" {
+@test "preserves line positions using line comments with the --before long argument" {
   input=$'# a heading\nsome text\n```\nsome code\n```'
   expected=$'// # a heading\n// some text\n// ```\nsome code\n// ```'
   printf "${input}" >> test/script.js.md
@@ -123,7 +123,7 @@ teardown() {
   [ "${code}" == "${expected}" ]
 }
 
-@test "should preserve line positions using line comments with the -b argument" {
+@test "preserves line positions using line comments with the -b short argument" {
   input=$'# a heading\nsome text\n```\nsome code\n```'
   expected=$'// # a heading\n// some text\n// ```\nsome code\n// ```'
   printf "${input}" >> test/script.js.md
@@ -132,7 +132,7 @@ teardown() {
   [ "${code}" == "${expected}" ]
 }
 
-@test "should preserve line positions using block comments with the --after argument" {
+@test "preserves line positions using block comments with the --after long argument" {
   input=$'# a heading\nsome text\n```\nsome code\n```'
   expected=$'/* # a heading */\n/* some text */\n/* ``` */\nsome code\n/* ``` */'
   printf "${input}" >> test/style.css.md
@@ -141,7 +141,7 @@ teardown() {
   [ "${code}" == "${expected}" ]
 }
 
-@test "should preserve line positions using block comments with the -a argument" {
+@test "preserves line positions using block comments with the -a short argument" {
   input=$'# a heading\nsome text\n```\nsome code\n```'
   expected=$'/* # a heading */\n/* some text */\n/* ``` */\nsome code\n/* ``` */'
   printf "${input}" >> test/style.css.md
