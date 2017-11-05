@@ -6,10 +6,10 @@ a little preprocessor for literate programming
 
 # Quick Start
 
-By default, strip out all Markdown content from your literate programming files:
+By default, extracts code from Markdown files:
 
 ```bash
-# strip Markdown content from literate programming
+# strip out Markdown content from literate programming
 # files in the current directory, leaving only
 # executable code in parallel files
 $ ./lit.sh
