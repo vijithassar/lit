@@ -113,7 +113,7 @@ function process_lines {
   file=$1
   # run awk command
   awk_command=$(configure_awk_command)
-  processed="$(awk {"$awk_command"} ${file})"
+  processed=$(awk {"$awk_command"} "${file}")
   # return code blocks only
   echo "${processed}"
 }
