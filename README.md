@@ -28,7 +28,7 @@ $ ./lit.sh --before "#"
 
 [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the delightful idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. One easy way to move in this direction is to write your source code into Markdown documents, with the code set aside in Markdown code blocks sprinkled throughout the written explanations. This inverts the usual relationship between code and comments: everything is assumed to be a comment until a special delimiter for marking the code is found, instead of the other way around as with most source code. In addition, your documentation can then use links, pictures, diagrams, embeds, iframes, or anything else allowed in Markdown and HTML.
 
-This script is a tiny text preprocessor built with [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) and then quickly send the content of the code blocks into parallel executable files. For a quick illustration, compare the [annotated source](hello-world.js.md) of the included hello-world script to its [compiled output](hello-world.js).
+This script is a tiny text preprocessor built with [bash](https://www.gnu.org/software/bash/) and [awk](https://en.wikipedia.org/wiki/AWK) which allows you to write all your source code in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/) and then quickly send the content of the code blocks into parallel executable files. For a quick illustration, compare the [annotated source](hello-world.js.md) of the included hello-world script to its [processed output](hello-world.js).
 
 # Installation?!? #
 
@@ -36,21 +36,21 @@ Feel free to clone this repository, but you can also just [download the script](
 
 # Usage #
 
-To compile literate source code, simply run the script. By default, it will compile any Markdown files it finds in the current directory.
+To compile literate source code, simply run the script. By default, it will process any Markdown files it finds in the current directory.
 
 ```bash
 # compile literate code files
 $ ./lit.sh
 ```
 
-Filenames must contain **two extensions** in order for the compiler to operate on them. The first should be the regular extension for the language you're compiling to (`.py`, `.js`, etc), and the second should be the Markdown `.md` extension.
+Filenames must contain **two extensions** in order for the script to operate on them. The first should be the regular extension for the language you're compiling to (`.py`, `.js`, etc), and the second should be the Markdown `.md` extension.
 
-For example, these filenames would be compiled:
+For example, these filenames would be processed:
 
 - `myscript.js.md`
 - `some_program.py.md`
 
-These would not be compiled:
+These would not be processed:
 
 - `myscript.js`
 - `README.md`
@@ -59,7 +59,7 @@ These would not be compiled:
 
 ### Input
 
-The `--input` or `-i` argument can be used to specify a path or file glob within which to find files to compile. File globs should be quoted strings. If this argument is omitted, all literate code files in the current working directory will be compiled.
+The `--input` or `-i` argument can be used to specify a path or file glob within which to find files to process. File globs should be quoted strings. If this argument is omitted, all literate code files in the current working directory will be processed.
 
 ```bash
 # compile literate code files in the ./source directory
@@ -73,7 +73,7 @@ $ ./lit.sh --input "./source/*.py.md"
 
 ### Output
 
-The `--output` or `-o` argument can be used to specify a path where the compiled files will be written. If this argument is omitted, the compiled files will be written in parallel next to the original literate code files.
+The `--output` or `-o` argument can be used to specify a path where the processed files will be written. If this argument is omitted, the processed files will be written in parallel next to the original literate code files.
 
 ```bash
 # compile literate code files in the current directory
@@ -124,7 +124,7 @@ $ bats test.bats
 
 # Ecosystem #
 
-- [Docco](http://ashkenas.com/docco/) and its many variants render literate source code into beautiful browsable HTML, in what is arguably the inverse complement to the operation performed by this compiler
+- [Docco](http://ashkenas.com/docco/) and its many variants render literate source code into beautiful browsable HTML, in what is arguably the inverse complement to the operation performed by this script
 - [Blaze](https://github.com/0atman/blaze) is a clever literate programming tool which optimizes for *execution* instead of *compilation*, allowing you to send Markdown files directly into any language of your choosing
 - [CoffeeScript](http://coffeescript.org) and [Haskell](https://www.haskell.org/) support literate programming natively and do not need any additional tooling!
 
