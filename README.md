@@ -102,6 +102,26 @@ You can also comment out Markdown content using a *block* commenting style by su
 $ ./lit.sh --input "./*.css.md" --before "/*" --after "*/"
 ```
 
+# Logging #
+
+As it processes files, the script echoes out the filenames of the resulting executable non-Markdown files. This means that if you are only processing a single file, you can both process the Markdown content and then immediately execute the result in one step by using a subshell. For example:
+
+```bash
+# compile script.js.md to script.js and
+# immediately execute with Node.js in a
+# subshell
+$ node $(./lit.sh --input script.js.md --before "//")
+```
+
+```bash
+# compile script.py.md to script.py and
+# immediately execute with Python in a
+# subshell
+$ python $(./lit.sh --input script.py.md --before "#")
+```
+
+You might even choose to put `script.js` or `script.py` in your `.gitignore` file and treat it as a *completely disposable* artifact, creating a documentation-first workflow in which you don't even have to pay attention to the compiled output file at all.
+
 # Advantages #
 
 - This script will work with any language.

@@ -78,6 +78,15 @@ teardown() {
   [ "${count}" -eq 2 ]
 }
 
+@test "prints processed script names" {
+  touch test/first.py.md
+  touch test/second.py.md
+  expected=$'test/output/first.py\ntest/output/second.py'
+  mkdir test/output
+  logs=$(./lit.sh --input "./test/*.py.md" --output test/output)
+  [ "${logs}" == "${expected}" ]
+}
+
 @test "selects files to compile based on a file glob provided via the --input long argument" {
   touch test/first.py.md
   touch test/second.py.md

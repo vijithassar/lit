@@ -137,12 +137,12 @@ function compile {
   else
     new_filename=$(remove_extension "${file}")
   fi
-  # log message
-  echo "compiling ${file} > ${new_filename}"
   # parse file content and remove Markdown comments
   compiled=$(process_lines "${file}")
   # save results to file
   echo "${compiled}" > "${new_filename}"
+  # print filename of compiled file to output
+  echo "${new_filename}"
 }
 if [ ! -z "${output_directory}" ] && [ ! -d "${output_directory}" ]; then
   mkdir -p "${output_directory}"
