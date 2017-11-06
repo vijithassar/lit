@@ -59,7 +59,7 @@ These would not be compiled:
 
 ### Input
 
-The `--input` or `-i` argument can be used to specify a path or file glob within which to find files to compile. File globs should be quoted strings. If this argument omitted, all literate code files in the current working directory will be compiled.
+The `--input` or `-i` argument can be used to specify a path or file glob within which to find files to compile. File globs should be quoted strings. If this argument is omitted, all literate code files in the current working directory will be compiled.
 
 ```bash
 # compile literate code files in the ./source directory
@@ -83,7 +83,7 @@ $ ./lit.sh --output ./build
 
 ### Comments
 
-Rather than simply *stripping* Markdown content entirely, it can be advantageous to just *comment it out* instead, since that means all code in the output file appears on the same line as in the original literate Markdown source, and thus errors and messages can be accurately reported by debuggers, loggers, compilers, and other such development tools. To comment out Markdown content instead of stripping it, use the `--before` or `-b` flags, followed by the character(s) used to denote inline code comments for the language you are compiling.
+Rather than simply *stripping* Markdown content entirely, it can be advantageous to just *comment it out* instead, since that means all code in the output file appears on the same line as in the original literate Markdown source, and thus errors and messages can be accurately reported by debuggers, loggers, compilers, and other such development tools. To comment out Markdown content instead of stripping it, use the `--before` or `-b` arguments, followed by the character(s) used to denote inline code comments for the language you are compiling.
 
 This is **definitely the recommended way to use this tool**, but it can't be the default behavior because you need to specify the inline comment delimiter for your language in order for it to work.
 
@@ -94,7 +94,7 @@ This is **definitely the recommended way to use this tool**, but it can't be the
 $ ./lit.sh --before "#"
 ```
 
-You can also comment out Markdown content using a *block* commenting style by supplying the `--after` or `-a` flags, followed by the characters used to denote the end of a block comment in the language you are compiling. However, inline comments are preferable, because block comments can be broken if any of your Markdown content includes the character sequence that denotes the end of a block comment. This option is included mostly to allow "literate CSS" files, since CSS does not have a single-line comment syntax.
+You can also comment out Markdown content using a *block* commenting style by supplying the `--after` or `-a` arguments, followed by the characters used to denote the end of a block comment in the language you are compiling. However, inline comments are preferable, because block comments can be broken if any of your Markdown content includes the character sequence that denotes the end of a block comment. This option is included mostly to allow "literate CSS" files, since CSS does not have a single-line comment syntax.
 
 ```bash
 # comment out Markdown content from "literate CSS" files
