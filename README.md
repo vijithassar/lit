@@ -125,7 +125,7 @@ $ bats test.bats
 # Ecosystem #
 
 - [Docco](http://ashkenas.com/docco/) and its many variants render literate source code into beautiful browsable HTML, in what is arguably the inverse complement to the operation performed by this script
-- [Blaze](https://github.com/0atman/blaze) is a clever literate programming tool which optimizes for *execution* instead of *compilation*, allowing you to send Markdown files directly into any language of your choosing
+- [Blaze](https://github.com/0atman/blaze) is a clever literate programming tool which optimizes for *execution* instead of *building*, allowing you to send Markdown files directly into any language of your choosing without any intermediate steps
 - [CoffeeScript](http://coffeescript.org) and [Haskell](https://www.haskell.org/) support literate programming natively and do not need any additional tooling!
 
 # Pedantry #
@@ -144,7 +144,7 @@ This lil guy:
 
 - was deeply inspired by [Literate CoffeeScript](http://coffeescript.org/#literate)
 - aims to be much simpler than the powerful [Node.js literate-programming compiler](https://github.com/jostylr/literate-programming)
-- uses GitHub-style ["fenced code blocks"](https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks) delimited with backticks instead of the space-driven notation used by [traditional Markdown](https://daringfireball.net/projects/markdown/)
+- uses GitHub-style ["fenced code blocks"](https://help.github.com/articles/creating-and-highlighting-code-blocks/) delimited with triple backticks instead of the tab-driven notation used by [traditional Markdown](https://daringfireball.net/projects/markdown/)
 - is based on a modified version of [Rich Traube's one-liner for awk](https://gist.github.com/trauber/4955706)
 - is minimalist and will remain that way so it can be an unobtrusive part of other your other build processes
 - is itself written with [heavily annotated source code](https://github.com/vijithassar/lit/blob/master/lit.sh.md) and [recursively compiles itself](https://github.com/vijithassar/lit/commit/3434fd18772bec44c19a191bb5592624844de255), which is ridiculous and a huge pain in the ass but it's too late now!
