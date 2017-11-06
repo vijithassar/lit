@@ -59,7 +59,7 @@ These would not be processed:
 
 ### Input
 
-The `--input` or `-i` argument can be used to specify a path or file glob within which to find files to process. File globs should be quoted strings. If this argument is omitted, all literate code files in the current working directory will be processed.
+The `--input` or `-i` arguments can be used to specify a path or file glob within which to find files to process. File globs should be quoted strings. If this argument is omitted, all literate code files in the current working directory will be processed.
 
 ```bash
 # compile literate code files in the ./source directory
@@ -73,7 +73,7 @@ $ ./lit.sh --input "./source/*.py.md"
 
 ### Output
 
-The `--output` or `-o` argument can be used to specify a path where the processed files will be written. If this argument is omitted, the processed files will be written in parallel next to the original literate code files.
+The `--output` or `-o` arguments can be used to specify a path where the processed files will be written. If this argument is omitted, the processed files will be written in parallel next to the original literate code files.
 
 ```bash
 # compile literate code files in the current directory
