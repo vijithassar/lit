@@ -87,6 +87,14 @@ teardown() {
   [ "${logs}" == "${expected}" ]
 }
 
+@test "uses stdio" {
+  markdown=$'# a heading\nsome text\n```\nsome code\n```'
+  touch test/stdout
+  cat "${markdown}" | ./lit.sh --stdio > test/stdout
+  result=$(less test/stdout)
+  [ "${result}" = 'some content' ]
+}
+
 @test "selects files to compile based on a file glob provided via the --input long argument" {
   touch test/first.py.md
   touch test/second.py.md
