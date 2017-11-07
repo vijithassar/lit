@@ -42,7 +42,7 @@ while [[ ${#} -gt 0 ]]; do
     shift
 done
 # given a filename ending in .md, return the base filename
-function remove_extension {
+remove_extension() {
   local file=${1}
   # file extension .md will always have three characters
   local extension_length=3
@@ -56,7 +56,7 @@ function remove_extension {
   echo "${new_filename}"
 }
 # make sure a filename is safe to process
-function test_filename {
+test_filename() {
   # first argument is the filename to test
   local file_path=${1}
   # return immediately if this isn't a markdown file
@@ -76,7 +76,7 @@ function test_filename {
   fi
 }
 # swap substrings in a string to produce an awk command
-function configure_awk_command {
+configure_awk_command() {
   local markdown_action
   local awk_command_base
   local awk_command
@@ -112,7 +112,7 @@ function configure_awk_command {
   echo "${awk_command}"
 }
 # handle Markdown content in an input file
-function process_lines {
+process_lines() {
   local awk_command
   local processed
   local file
@@ -125,7 +125,7 @@ function process_lines {
   echo "${processed}"
 }
 # routine to compile a single file
-function compile {
+compile() {
   local file
   local new_filename
   local compiled

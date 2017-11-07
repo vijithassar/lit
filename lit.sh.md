@@ -61,7 +61,7 @@ We want to support any type of code wrapped in Markdown, so we'll make no assump
 
 ```bash
 # given a filename ending in .md, return the base filename
-function remove_extension {
+remove_extension() {
   local file=${1}
   # file extension .md will always have three characters
   local extension_length=3
@@ -80,7 +80,7 @@ We also need the ability to test a filename to see if it matches the conventions
 
 ```bash
 # make sure a filename is safe to process
-function test_filename {
+test_filename() {
   # first argument is the filename to test
   local file_path=${1}
   # return immediately if this isn't a markdown file
@@ -109,7 +109,7 @@ The awk command is assembled in Bash as a string, with a few slight modification
 
 ```bash
 # swap substrings in a string to produce an awk command
-function configure_awk_command {
+configure_awk_command() {
   local markdown_action
   local awk_command_base
   local awk_command
@@ -152,7 +152,7 @@ Call the awk command on the input.
 
 ```bash
 # handle Markdown content in an input file
-function process_lines {
+process_lines() {
   local awk_command
   local processed
   local file
@@ -172,7 +172,7 @@ Wrap the awk command and the filename logic into a single function which can be 
 
 ```bash
 # routine to compile a single file
-function compile {
+compile() {
   local file
   local new_filename
   local compiled
