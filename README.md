@@ -28,7 +28,7 @@ All the above, but also *immediately execute* the code in a Markdown file:
 
 ```bash
 # execute the Python code blocks inside a Markdown file
-$ python $(./lit.sh --input script.py.md --before "#")
+$ python $(./lit.sh --input "script.py.md" --before "#")
 ```
 
 # Overview #
@@ -128,14 +128,14 @@ For example, to compile a single file, capture the filename with a subshell, and
 # compile script.js.md to script.js and
 # immediately execute with Node.js using a
 # subshell
-$ node $(./lit.sh --input script.js.md --before "//")
+$ node $(./lit.sh --input "script.js.md" --before "//")
 ```
 
 ```bash
 # compile script.py.md to script.py and
 # immediately execute with Python using a
 # subshell
-$ python $(./lit.sh --input script.py.md --before "#")
+$ python $(./lit.sh --input "script.py.md" --before "#")
 ```
 
 In this scenario you may also want to add `script.js` or `script.py` in your `.gitignore` file.
