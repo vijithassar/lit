@@ -218,3 +218,10 @@ teardown() {
   code="$(echo "${markdown}" | ./lit.sh --stdio --before '/*' -a '*/')"
   [ "${code}" == "${expected}" ]
 }
+
+@test "executes without creating unexpected artifacts" {
+  pre=$(ls -R . | wc -l)
+  ./lit.sh
+  post=$(ls -R . | wc -l)
+  [ "${pre}" -eq "${post}" ]
+}
