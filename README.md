@@ -41,11 +41,11 @@ This script is a tiny text preprocessor built with [bash](https://www.gnu.org/so
 
 Feel free to clone this repository, but you can also just [download the script](lit.sh). It is self contained and there are no dependencies beyond bash and awk, which you almost certainly already have.
 
-A one liner for command-line installation:
+A one-liner for command line installation:
 
 ```bash
 # install lit.sh
-$ curl https://raw.githubusercontent.com/vijithassar/lit/master/lit.sh > lit.sh && chmod +x
+$ curl https://raw.githubusercontent.com/vijithassar/lit/master/lit.sh > lit.sh && chmod +x lit.sh
 ```
 
 # Usage #
