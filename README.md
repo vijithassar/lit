@@ -87,7 +87,7 @@ The `--stdio` or `-s` arguments can be used to read from stdin for the Markdown 
 
 ```bash
 # compile annotated.py.md to code.py by routing over stdio
-$ cat annotated.py.md | ./lit.sh > code.py
+$ cat annotated.py.md | ./lit.sh --stdio > code.py
 ```
 
 ### Comments
