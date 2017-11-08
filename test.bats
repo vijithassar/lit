@@ -18,10 +18,10 @@ teardown() {
 }
 
 @test "compiled example matches Markdown source" {
-  git checkout hello-world.js
-  pre="$(less hello-world.js)"
-  ./lit.sh --input "hello-world.js.md"
-  post="$(less hello-world.js)"
+  git checkout hello-world.rb
+  pre="$(less hello-world.rb)"
+  ./lit.sh --input "hello-world.rb.md"
+  post="$(less hello-world.rb)"
   [ "${pre}" == "${post}" ]
 }
 
