@@ -15,7 +15,7 @@ By default, extracts code from Markdown files:
 $ ./lit.sh
 ```
 
-Alternatively (and **highly recommended** for development purposes), you can just *comment out* the Markdown, thereby preserving the original line numbers for more accurate debugging:
+Alternatively, and **highly recommended** for development purposes, you can just *comment out* the Markdown, thereby preserving the original line numbers for more accurate debugging:
 
 ```bash
 # comment out Markdown content from literate programming
@@ -24,10 +24,10 @@ Alternatively (and **highly recommended** for development purposes), you can jus
 $ ./lit.sh --before "#"
 ```
 
-All the above, but also *immediately execute* the code in a Markdown file:
+As above, but also *immediately execute* the code in a Markdown file:
 
 ```bash
-# execute the Python code blocks inside a Markdown file
+# use Python to execute the fenced code blocks inside script.py.md
 $ python $(./lit.sh --input "script.py.md" --before "#")
 ```
 
