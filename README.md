@@ -81,6 +81,15 @@ The `--output` or `-o` arguments can be used to specify a path where the process
 $ ./lit.sh --output ./build
 ```
 
+### stdin and stdout
+
+The `--stdio` or `-s` arguments can be used to read from stdin for the Markdown content to be processed and send the processed code content to stdout.
+
+```bash
+# compile annotated.py.md to code.py by routing over stdio
+$ cat annotated.py.md | ./lit.sh > code.py
+```
+
 ### Comments
 
 Rather than simply *stripping* Markdown content entirely, it can be advantageous to just *comment it out* instead, since that means all code in the output file appears on the same line as in the original literate Markdown source, and thus errors and messages can be accurately reported by debuggers, loggers, compilers, and other such development tools. To comment out Markdown content instead of stripping it, use the `--before` or `-b` arguments, followed by the character(s) used to denote inline code comments for the language you are compiling.

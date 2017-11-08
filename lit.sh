@@ -7,11 +7,16 @@ files="./*.*.md"
 output_directory=""
 before=''
 after=''
+stdio=0
 
 # as long as there is at least one more argument, keep looping
 while [[ ${#} -gt 0 ]]; do
     key="${1}"
     case "${key}" in
+        # stdio
+        -s|--stdio)
+        stdio=1
+        ;;
         # input files
         -i|--input)
         shift
@@ -115,30 +120,32 @@ configure_awk_command() {
 process_lines() {
   local awk_command
   local processed
-  local file
+  local content
   # first argument is filename
-  file=$1
+  content="${1}"
   # run awk command
   awk_command=$(configure_awk_command)
-  processed=$(awk {"$awk_command"} "${file}")
+  processed=$(echo "${content}" | awk {"$awk_command"})
   # return code blocks only
   echo "${processed}"
 }
 # routine to compile a single file
-compile() {
+process_file() {
   local file
+  local content
   local new_filename
   local compiled
   # first argument is filename
-  file=$1
+  file=${1}
   # convert to the new filename
   if [ ! -z "${output_directory}" ]; then
     new_filename="${output_directory}"/$(basename $(remove_extension "${file}"))
   else
     new_filename=$(remove_extension "${file}")
   fi
+  content="$(less "${file}")"
   # parse file content and remove Markdown comments
-  compiled=$(process_lines "${file}")
+  compiled="$(process_lines "${content}")"
   # save results to file
   echo "${compiled}" > "${new_filename}"
   # print filename of compiled file to output
@@ -148,11 +155,16 @@ if [ ! -z "${output_directory}" ] && [ ! -d "${output_directory}" ]; then
   mkdir -p "${output_directory}"
 fi
 # loop through files
-for file in $(ls ${files})
-do
-  # make sure it's a literate code file
-  if test_filename "${file}"; then
-    # compile
-    compile "${file}"
-  fi
-done
+if [ "${stdio}" -eq 0 ]; then
+  for file in $(ls ${files})
+  do
+    # make sure it's a literate code file
+    if test_filename "${file}"; then
+      # compile
+      process_file "${file}"
+    fi
+  done
+elif [ "${stdio}" -eq 1 ]; then
+  content="$(</dev/stdin)"
+  echo "$(process_lines "${content}")"
+fi
