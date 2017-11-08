@@ -151,7 +151,6 @@ process_file() {
   content="$(less "${file}")"
   # parse file content and remove Markdown comments
   compiled="$(process_lines "${content}")"
-  start=${SECONDS}
   # save results to file
   echo "${compiled}" > "${new_filename}"
   if [ "${stdio}" = 0 ]; then
