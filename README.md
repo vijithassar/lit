@@ -87,7 +87,7 @@ $ ./lit.sh --input "./source/*.py.md"
 
 ### Output
 
-The `--output` or `-o` arguments can be used to specify a path where the processed files will be written. If this argument is omitted, the processed files will be written in the current working directory.
+The `--output` or `-o` arguments can be used to specify a path where the processed files will be written. If this argument is omitted, the processed files will be written in the same directory as the input files.
 
 ```bash
 # compile literate code files in the current directory

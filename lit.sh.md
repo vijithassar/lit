@@ -223,6 +223,11 @@ if [ ! -z "${output_directory}" ] && [ ! -d "${output_directory}" ]; then
 fi
 ```
 
+
+```bash
+filelist=$(find ${files} -name "*.md" -type f)
+```
+
 # Loop Through Files #
 
 For each file, test the filename to see if it looks like a literate code file, and if so, compile it.
@@ -233,9 +238,9 @@ if [ "${stdio}" -eq 0 ]; then
   
   # loop through files
   if [ "${verbose}" -eq 1 ]; then
-    echo "compiling $(echo "$(ls ${files})" | wc -l) files in ${files}"
+    echo "compiling $(echo ${filelist} | wc -l) files in ${files}"
   fi
-  for file in $(ls ${files})
+  for file in ${filelist}
   do
     # make sure it's a literate code file
     if test_filename "${file}"; then

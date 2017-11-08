@@ -2,7 +2,7 @@
 
 setup() {
   mkdir test
-  ./lit.sh --input "lit.sh.md"
+  echo 'updating ./lit.sh...'
 }
 
 teardown() {
@@ -159,6 +159,15 @@ teardown() {
   ./lit.sh --input "./test/subdirectory/*.py.md"
   count="$(find test/subdirectory/ -type f | wc -l)"
   [ "${count}" -eq 2 ]
+}
+
+@test "recursively processes subdirectories" {
+  mkdir test/subdirectory
+  touch test/first.py.md
+  touch test/subdirectory/second.py.md
+  touch test/subdirectory/third.py.md
+  result="$(./lit.sh --input test | wc -l)"
+  [ "${result}" -eq 3 ]
 }
 
 @test "removes Markdown and preserves code" {
