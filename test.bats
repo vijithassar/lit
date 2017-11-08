@@ -171,7 +171,7 @@ teardown() {
 
 @test "allows language annotation after backticks" {
   markdown=$'# a heading\nsome text\n```javascript\nsome code\n```'
-  code="$(echo "${markdown}" | ./lit.sh --stdio --input "./test/script.py.md")"
+  code="$(echo "${markdown}" | ./lit.sh --stdio)"
   [ "${code}" == "some code" ]
 }
 
