@@ -90,8 +90,7 @@ teardown() {
 @test "uses stdio" {
   markdown=$'# a heading\nsome text\n```\nsome code\n```'
   touch test/stdout
-  echo "${markdown}" | ./lit.sh --stdio > test/stdout
-  result=$(less test/stdout)
+  result="$(echo "${markdown}" | ./lit.sh --stdio)"
   [ "${result}" = 'some code' ]
 }
 
@@ -163,55 +162,41 @@ teardown() {
 
 @test "allows language annotation after backticks" {
   markdown=$'# a heading\nsome text\n```javascript\nsome code\n```'
-  printf "${markdown}" >> test/script.py.md
-  ./lit.sh --input ./test/script.py.md
-  code="$(less ./test/script.py)"
+  code="$(echo "${markdown}" | ./lit.sh --stdio --input ./test/script.py.md)"
   [ "${code}" == "some code" ]
 }
 
 @test "compiles multiple fenced code blocks" {
-  first=$'# a heading\nsome text\n```\nsome code\n```'
-  second=$'# a heading\nsome text\n```\nsome more code\n```'
+  markdown=$'# a heading\nsome text\n```\nsome code\n```\n# a heading\nsome text\n```\nsome more code\n```'
   expected=$'some code\nsome more code'
-  printf "${first}" >> test/script.py.md
-  printf "${second}" >> test/script.py.md
-  ./lit.sh --input ./test/script.py.md
-  code="$(less ./test/script.py)"
+  code="$(echo "${markdown}" | ./lit.sh --stdio)"
   [ "${code}" == "${expected}" ]
 }
 
 @test "preserves line positions using line comments with the --before long argument" {
-  input=$'# a heading\nsome text\n```\nsome code\n```'
+  markdown=$'# a heading\nsome text\n```\nsome code\n```'
   expected=$'// # a heading\n// some text\n// ```\nsome code\n// ```'
-  printf "${input}" >> test/script.js.md
-  ./lit.sh --input ./test/script.js.md --before "//"
-  code="$(less ./test/script.js)"
+  code="$(echo "${markdown}" | ./lit.sh --stdio --before '//')"
   [ "${code}" == "${expected}" ]
 }
 
 @test "preserves line positions using line comments with the -b short argument" {
-  input=$'# a heading\nsome text\n```\nsome code\n```'
+  markdown=$'# a heading\nsome text\n```\nsome code\n```'
   expected=$'// # a heading\n// some text\n// ```\nsome code\n// ```'
-  printf "${input}" >> test/script.js.md
-  ./lit.sh --input ./test/script.js.md -b "//"
-  code="$(less ./test/script.js)"
+  code="$(echo "${markdown}" | ./lit.sh --stdio -b '//')"
   [ "${code}" == "${expected}" ]
 }
 
 @test "preserves line positions using block comments with the --after long argument" {
-  input=$'# a heading\nsome text\n```\nsome code\n```'
+  markdown=$'# a heading\nsome text\n```\nsome code\n```'
   expected=$'/* # a heading */\n/* some text */\n/* ``` */\nsome code\n/* ``` */'
-  printf "${input}" >> test/style.css.md
-  ./lit.sh --input ./test/style.css.md --before "/*" --after "*/"
-  code="$(less ./test/style.css)"
+  code="$(echo "${markdown}" | ./lit.sh --stdio --before '/*' --after '*/')"
   [ "${code}" == "${expected}" ]
 }
 
 @test "preserves line positions using block comments with the -a short argument" {
-  input=$'# a heading\nsome text\n```\nsome code\n```'
+  markdown=$'# a heading\nsome text\n```\nsome code\n```'
   expected=$'/* # a heading */\n/* some text */\n/* ``` */\nsome code\n/* ``` */'
-  printf "${input}" >> test/style.css.md
-  ./lit.sh --input ./test/style.css.md --before "/*" -a "*/"
-  code="$(less ./test/style.css)"
+  code="$(echo "${markdown}" | ./lit.sh --stdio --before '/*' -a '*/')"
   [ "${code}" == "${expected}" ]
 }
