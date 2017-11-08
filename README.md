@@ -24,6 +24,13 @@ Alternatively (and **highly recommended** for development purposes), you can jus
 $ ./lit.sh --before "#"
 ```
 
+All the above, but also *immediately execute* the code in a Markdown file:
+
+```bash
+# execute the Python code blocks inside a Markdown file
+$ python $(./lit.sh --input script.py.md --before "#")
+```
+
 # Overview #
 
 [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is the delightful idea popularized by Donald Knuth that source code should be written and/or richly annotated for clarity to human readers instead of mercilessly optimized for computing efficiency. One easy way to move in this direction is to write your source code into Markdown documents, with the code set aside in Markdown code blocks sprinkled throughout the written explanations. This inverts the usual relationship between code and comments: everything is assumed to be a comment until a special delimiter for marking the code is found, instead of the other way around as with most source code. In addition, your documentation can then use links, pictures, diagrams, embeds, iframes, or anything else allowed in Markdown and HTML.
