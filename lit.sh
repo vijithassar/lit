@@ -126,7 +126,7 @@ process_lines() {
   local awk_command
   local processed
   local content
-  # first argument is filename
+  # first argument is Markdown content
   content="${1}"
   # run awk command
   awk_command=$(configure_awk_command)
@@ -167,8 +167,10 @@ process_file() {
 if [ ! -z "${output_directory}" ] && [ ! -d "${output_directory}" ]; then
   mkdir -p "${output_directory}"
 fi
-# loop through files
+# if stdio isn't enabled
 if [ "${stdio}" -eq 0 ]; then
+  
+  # loop through files
   if [ "${verbose}" -eq 1 ]; then
     echo "compiling $(echo "$(ls ${files})" | wc -l) files in ${files}"
   fi
@@ -180,8 +182,9 @@ if [ "${stdio}" -eq 0 ]; then
       process_file "${file}"
     fi
   done
-# process stdin to stdout
+# if stdio is enabled
 elif [ "${stdio}" -eq 1 ]; then
+  # process stdin to stdout
   content="$(</dev/stdin)"
   echo "$(process_lines "${content}")"
 fi

@@ -167,7 +167,7 @@ process_lines() {
   local awk_command
   local processed
   local content
-  # first argument is filename
+  # first argument is Markdown content
   content="${1}"
   # run awk command
   awk_command=$(configure_awk_command)
@@ -229,8 +229,10 @@ fi
 For each file, test the filename to see if it looks like a literate code file, and if so, compile it.
 
 ```bash
-# loop through files
+# if stdio isn't enabled
 if [ "${stdio}" -eq 0 ]; then
+  
+  # loop through files
   if [ "${verbose}" -eq 1 ]; then
     echo "compiling $(echo "$(ls ${files})" | wc -l) files in ${files}"
   fi
@@ -249,8 +251,9 @@ if [ "${stdio}" -eq 0 ]; then
 Alternately, read from stdin and echo the output.
 
 ```bash
-# process stdin to stdout
+# if stdio is enabled
 elif [ "${stdio}" -eq 1 ]; then
+  # process stdin to stdout
   content="$(</dev/stdin)"
   echo "$(process_lines "${content}")"
 fi
