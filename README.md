@@ -87,13 +87,20 @@ $ ./lit.sh --input "./source/*.py.md"
 
 ### Output
 
-The `--output` or `-o` arguments can be used to specify a path where the processed files will be written. If this argument is omitted, the processed files will be written in parallel next to the original literate code files.
+The `--output` or `-o` arguments can be used to specify a path where the processed files will be written. If this argument is omitted, the processed files will be written in the current working directory.
 
 ```bash
 # compile literate code files in the current directory
 # and write to the ./build directory
 $ ./lit.sh --output ./build
 ```
+
+```bash
+# compile literate code files in the ./source directory
+# and write to the current working directory
+$ ./lit.sh --input "./source"
+```
+
 
 ### stdin and stdout
 
