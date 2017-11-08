@@ -2,7 +2,7 @@
 
 setup() {
   mkdir test
-  ./lit.sh --input lit.sh.md
+  ./lit.sh --input "lit.sh.md"
 }
 
 teardown() {
@@ -12,7 +12,7 @@ teardown() {
 @test "live compilation script matches Markdown source" {
   git checkout lit.sh
   pre="$(less lit.sh)"
-  ./lit.sh --input lit.sh.md
+  ./lit.sh --input "lit.sh.md"
   post="$(less lit.sh)"
   [ "${pre}" == "${post}" ]
 }
@@ -20,7 +20,7 @@ teardown() {
 @test "compiled example matches Markdown source" {
   git checkout hello-world.js
   pre="$(less hello-world.js)"
-  ./lit.sh --input hello-world.js.md
+  ./lit.sh --input "hello-world.js.md"
   post="$(less hello-world.js)"
   [ "${pre}" == "${post}" ]
 }
@@ -91,7 +91,7 @@ teardown() {
   touch test/first.py.md
   touch test/second.py.md
   expected_items=2
-  logs=$(./lit.sh --input test --verbose --output test)
+  logs=$(./lit.sh --input "test" --verbose --output test)
   item_count=$(echo "${logs}" | grep '.py.md' | wc -l)
   [ "${item_count}" -eq "${expected_items}" ]
 }
@@ -164,14 +164,14 @@ teardown() {
 @test "removes Markdown and preserves code" {
   markdown=$'# a heading\nsome text\n```\nsome code\n```'
   printf "${markdown}" >> test/script.py.md
-  ./lit.sh --input ./test/script.py.md
+  ./lit.sh --input "./test/script.py.md"
   code="$(less ./test/script.py)"
   [ "${code}" == "some code" ]
 }
 
 @test "allows language annotation after backticks" {
   markdown=$'# a heading\nsome text\n```javascript\nsome code\n```'
-  code="$(echo "${markdown}" | ./lit.sh --stdio --input ./test/script.py.md)"
+  code="$(echo "${markdown}" | ./lit.sh --stdio --input "./test/script.py.md")"
   [ "${code}" == "some code" ]
 }
 
