@@ -133,7 +133,16 @@ $ python $(./lit.sh --input script.py.md --before "#")
 
 In this scenario you may also want to add `script.js` or `script.py` in your `.gitignore` file.
 
-This logging behavior does not apply to cases where you use stdin or stdout with the `--stdio` or `-s` flags, in which case the printed output is the processed code.
+Concise and subshell-friendly output is the most useful default, but you can also enable more verbose human-readable messages using the `--verbose` or `-v` arguments.
+
+```bash
+# compile all files in the current directory
+# and output verbose log messages
+$ ./lit.sh --verbose
+```
+
+Logging is naturally disabled when you use stdin or stdout with the `--stdio` or `-s` flags, in which case the printed output is the processed code.
+
 
 # Advantages #
 

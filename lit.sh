@@ -8,6 +8,7 @@ output_directory=""
 before=''
 after=''
 stdio=0
+verbose=0
 
 # as long as there is at least one more argument, keep looping
 while [[ ${#} -gt 0 ]]; do
@@ -26,6 +27,10 @@ while [[ ${#} -gt 0 ]]; do
         -o|--output)
         shift
         output_directory="${1}"
+        ;;
+        # verbose logging
+        -v|--verbose)
+        verbose=1
         ;;
         # demarcate start of block or line comment
         -b|--before)
@@ -146,16 +151,27 @@ process_file() {
   content="$(less "${file}")"
   # parse file content and remove Markdown comments
   compiled="$(process_lines "${content}")"
+  start=${SECONDS}
   # save results to file
   echo "${compiled}" > "${new_filename}"
-  # print filename of compiled file to output
-  echo "${new_filename}"
+  if [ "${stdio}" = 0 ]; then
+    if [ "${verbose}" -eq 0 ]; then
+      # print filename of compiled file to output
+      echo "${new_filename}"
+    elif [ "${verbose}" -eq 1 ]; then
+      # alternately, verbose logging
+      echo "${file} > ${new_filename}"
+    fi
+  fi
 }
 if [ ! -z "${output_directory}" ] && [ ! -d "${output_directory}" ]; then
   mkdir -p "${output_directory}"
 fi
 # loop through files
 if [ "${stdio}" -eq 0 ]; then
+  if [ "${verbose}" -eq 1 ]; then
+    echo "compiling $(echo "$(ls ${files})" | wc -l) files in ${files}"
+  fi
   for file in $(ls ${files})
   do
     # make sure it's a literate code file
@@ -164,6 +180,7 @@ if [ "${stdio}" -eq 0 ]; then
       process_file "${file}"
     fi
   done
+# process stdin to stdout
 elif [ "${stdio}" -eq 1 ]; then
   content="$(</dev/stdin)"
   echo "$(process_lines "${content}")"

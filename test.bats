@@ -78,13 +78,22 @@ teardown() {
   [ "${count}" -eq 2 ]
 }
 
-@test "prints processed script names" {
+@test "prints processed script names by default" {
+  touch test/first.js.md
+  touch test/second.js.md
+  expected=$'test/output/first.js\ntest/output/second.js'
+  mkdir test/output
+  logs=$(./lit.sh --input "./test/*.js.md" --output test/output)
+  [ "${logs}" == "${expected}" ]
+}
+
+@test "verbose logging" {
   touch test/first.py.md
   touch test/second.py.md
-  expected=$'test/output/first.py\ntest/output/second.py'
-  mkdir test/output
-  logs=$(./lit.sh --input "./test/*.py.md" --output test/output)
-  [ "${logs}" == "${expected}" ]
+  expected_items=2
+  logs=$(./lit.sh --input test --verbose --output test)
+  item_count=$(echo "${logs}" | grep '.py.md' | wc -l)
+  [ "${item_count}" -eq "${expected_items}" ]
 }
 
 @test "uses stdio" {
