@@ -98,7 +98,6 @@ teardown() {
 
 @test "uses stdio" {
   markdown=$'# a heading\nsome text\n```\nsome code\n```'
-  touch test/stdout
   result="$(echo "${markdown}" | ./lit.sh --stdio)"
   [ "${result}" = 'some code' ]
 }
