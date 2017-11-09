@@ -98,9 +98,8 @@ $ ./lit.sh --output ./build
 ```bash
 # compile literate code files in the ./source directory
 # and write to the current working directory
-$ ./lit.sh --input "./source"
+$ ./lit.sh --input "./source" --output .
 ```
-
 
 ### stdin and stdout
 
