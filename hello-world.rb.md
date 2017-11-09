@@ -2,7 +2,7 @@
 
 ## A Simple Example
 
-This is a demonstration of "literate programming". You are currently looking at a source code file, but instead of containing only code, it's a more elaborate document written with [Markdown](https://daringfireball.net/projects/markdown/syntax), a popular shorthand syntax for writing HTML.
+This is a demonstration of "literate programming." You are currently looking at a source code file, but instead of containing only code, it's a more elaborate document written with [Markdown](https://daringfireball.net/projects/markdown/syntax), a popular shorthand syntax for writing HTML.
 
 Interspersed with the written prose are occasional blocks of code. In this case, the programming language being used is [Ruby](https://www.ruby-lang.org/en/), in which the [puts](https://ruby-doc.org/core-2.1.3/IO.html#method-i-puts) method can **put** a **s**tring of text into the terminal.
 
