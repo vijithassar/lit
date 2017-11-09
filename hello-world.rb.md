@@ -12,7 +12,7 @@ You can write whatever you want in the document using text, Markdown, or HTML. T
 puts 'hello world!'
 ```
 
-Now you have some code. When you run the [preprocessing script](lit.sh) as described in the [README.md](instructions), it will strip away all the explanatory material *outside* the fenced code blocks and create a new file consisting of [only the code sections](hello-world.rb) which Ruby knows how to execute.
+Now you have some code. When you use the [script](lit.sh) to process this document as described in the [README.md](instructions), it will strip away all the explanatory material *outside* the fenced code blocks and create a new file consisting of [only the code sections](hello-world.rb) which Ruby knows how to execute.
 
 ```ruby
 puts ':D'
