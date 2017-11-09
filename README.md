@@ -152,7 +152,7 @@ $ node $(./lit.sh --input "script.js.md" --before "//")
 $ python $(./lit.sh --input "script.py.md" --before "#")
 ```
 
-In this scenario you may also want to add `script.js` or `script.py` in your `.gitignore` file.
+In this scenario you may also want to add `script.js` or `script.py` to your `.gitignore` file.
 
 Concise and subshell-friendly output is the most useful default, but you can also enable more verbose human-readable messages using the `--verbose` or `-v` arguments.
 
