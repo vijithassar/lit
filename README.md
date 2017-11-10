@@ -186,6 +186,7 @@ $ bats test.bats
 
 # Ecosystem #
 
+- [rollup-plugin-markdown](https://www.npmjs.com/package/rollup-plugin-markdown) implements essentially the same logic as this shell script, but it is optimized for JavaScript code, works with sourcemaps, integrates with a [popular build tool](https://rollupjs.org), and is [available via npm](https://www.npmjs.com/package/rollup-plugin-markdown)
 - [Docco](http://ashkenas.com/docco/) and its many variants render literate source code into beautiful browsable HTML, in what is arguably the inverse complement to the operation performed by this script
 - [Blaze](https://github.com/0atman/blaze) is a clever literate programming tool which optimizes for *execution* instead of *building*, allowing you to send Markdown files directly into any language of your choosing without any intermediate steps
 - [CoffeeScript](http://coffeescript.org) and [Haskell](https://www.haskell.org/) support literate programming natively and do not need any additional tooling!
