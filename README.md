@@ -131,7 +131,7 @@ You can also comment out Markdown content using a *block* commenting style by su
 $ ./lit.sh --input "./*.css.md" --before "/*" --after "*/"
 ```
 
-# Logging #
+## Logging ##
 
 As it processes files, the script echoes out the filenames of the resulting executable (non-Markdown) code files. If you want, you can capture these in a subshell and use them in further downstream logic, thereby totally abstracting away even the filename of the resulting processed code and creating a *completely documentation-first* workflow.
 
@@ -153,6 +153,19 @@ $ python $(./lit.sh --input "script.py.md" --before "#")
 
 In this scenario you may also want to add `script.js` or `script.py` to your `.gitignore` file.
 
+### Hidden Files ###
+
+In addition, the `--hidden` or `-h` arguments can be used to prepend a dot `.` to the output filename. This is useful because files that start with a dot are hidden by default on most UNIX-like file systems. This behavior lets you hide the artifacts of compiling your Markdown into executable files.
+
+For example, combining with subshells as described above:
+
+```bash
+# compile script.py.md to a hidden file and immediately execute it
+$ python $(./lit.sh --input script.py.md --hidden)
+```
+
+### Verbose Logging ###
+
 Concise and subshell-friendly output is the most useful default, but you can also enable more verbose human-readable messages using the `--verbose` or `-v` arguments.
 
 ```bash
@@ -162,17 +175,6 @@ $ ./lit.sh --verbose
 ```
 
 Logging is naturally disabled when you use stdin or stdout with the `--stdio` or `-s` flags, in which case the printed output is the processed code.
-
-# Hidden Files #
-
-The `--hidden` or `-h` arguments can be used to prepend a dot `.` to the output filename. This is useful because files that start with a dot are hidden by default on most UNIX-like file systems. This behavior lets you hide the artifacts of compiling your Markdown into executable files.
-
-For example, combining with subshells as described above:
-
-```bash
-# compile script.py.md to a hidden file and immediately execute it
-$ python $(./lit.sh --input script.py.md --hidden)
-```
 
 # Advantages #
 
