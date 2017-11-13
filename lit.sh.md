@@ -21,6 +21,7 @@ before=''
 after=''
 stdio=0
 verbose=0
+filename_prefix=""
 
 # as long as there is at least one more argument, keep looping
 while [[ ${#} -gt 0 ]]; do
@@ -38,11 +39,15 @@ while [[ ${#} -gt 0 ]]; do
         # output files
         -o|--output)
         shift
-        output_directory="${1}"
+        output_directory="${1%/}/"
         ;;
         # verbose logging
         -v|--verbose)
         verbose=1
+        ;;
+        # verbose logging
+        -h|--hidden)
+        filename_prefix="."
         ;;
         # demarcate start of block or line comment
         -b|--before)
@@ -184,17 +189,18 @@ Wrap the awk command and the filename logic into a single function which can be 
 ```bash
 # routine to compile a single file
 process_file() {
-  local file
+  local markdown_file
   local content
-  local new_filename
+  local output_file
   local compiled
   # first argument is filename
-  file=${1}
+  markdown_file=${1}
+  output_filename="${filename_prefix}$(basename "${markdown_file}" '.md')"
   # convert to the new filename
   if [ ! -z "${output_directory}" ]; then
-    new_filename="${output_directory}"/$(basename $(remove_extension "${file}"))
+    new_filename="${output_directory}${output_filename}"
   else
-    new_filename=$(remove_extension "${file}")
+    new_filename="./$(dirname ${markdown_file})/${output_filename}"
   fi
   content="$(less "${file}")"
   # parse file content and remove Markdown comments
@@ -235,7 +241,7 @@ For each file, test the filename to see if it looks like a literate code file, a
 ```bash
 # if stdio isn't enabled
 if [ "${stdio}" -eq 0 ]; then
-  
+
   # loop through files
   if [ "${verbose}" -eq 1 ]; then
     echo "compiling $(echo ${filelist} | wc -l) files in ${files}"

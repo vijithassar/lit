@@ -2,7 +2,6 @@
 
 setup() {
   mkdir test
-  echo 'updating ./lit.sh...'
 }
 
 teardown() {
@@ -78,6 +77,13 @@ teardown() {
   [ "${count}" -eq 2 ]
 }
 
+@test "writes to hidden files" {
+  touch test/script.py.md
+  ./lit.sh --input "./test" --hidden
+  count="$(find test/ -type f -name .*.py | wc -l)"
+  [ "${count}" -eq 1 ]
+}
+
 @test "prints processed script names by default" {
   touch test/first.js.md
   touch test/second.js.md
@@ -144,10 +150,34 @@ teardown() {
   [ "${count}" -eq 2 ]
 }
 
+@test "appends trailing slashes to input directories" {
+  touch test/first.py.md
+  touch test/second.py.md
+  ./lit.sh --input "./test" --output test/result
+  count="$(find test/result/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
+}
+
+@test "normalizes trailing slashes in input directories" {
+  touch test/first.py.md
+  touch test/second.py.md
+  ./lit.sh --input "./test/" --output test/result
+  count="$(find test/result/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
+}
+
 @test "appends trailing slashes to output directories" {
   touch test/first.py.md
   touch test/second.py.md
   ./lit.sh --input "./test/*.py.md" --output test/subdirectory
+  count="$(find test/subdirectory/ -type f | wc -l)"
+  [ "${count}" -eq 2 ]
+}
+
+@test "normalizes trailing slashes in output directories" {
+  touch test/first.py.md
+  touch test/second.py.md
+  ./lit.sh --input "./test/*.py.md" --output test/subdirectory/
   count="$(find test/subdirectory/ -type f | wc -l)"
   [ "${count}" -eq 2 ]
 }

@@ -163,6 +163,16 @@ $ ./lit.sh --verbose
 
 Logging is naturally disabled when you use stdin or stdout with the `--stdio` or `-s` flags, in which case the printed output is the processed code.
 
+# Hidden Files #
+
+The `--hidden` or `-h` arguments can be used to prepend a dot `.` to the output filename. This is useful because files that start with a dot are hidden by default on most UNIX-like file systems. This behavior lets you hide the artifacts of compiling your Markdown into executable files.
+
+For example, combining with subshells as described above:
+
+```bash
+# compile script.py.md to a hidden file and immediately execute it
+$ python $(./lit.sh --input script.py.md --hidden)
+```
 
 # Advantages #
 
