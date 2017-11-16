@@ -200,7 +200,7 @@ process_file() {
   if [ ! -z "${output_directory}" ]; then
     new_filename="${output_directory}${output_filename}"
   else
-    new_filename="./$(dirname ${markdown_file})/${output_filename}"
+    new_filename="$(dirname ${markdown_file})/${output_filename}"
   fi
   content="$(less "${file}")"
   # parse file content and remove Markdown comments
