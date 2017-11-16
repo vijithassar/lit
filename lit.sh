@@ -172,9 +172,11 @@ process_file() {
 if [ ! -z "${output_directory}" ] && [ ! -d "${output_directory}" ]; then
   mkdir -p "${output_directory}"
 fi
-filelist=$(find ${files} -name "*.md" -type f)
 # if stdio isn't enabled
 if [ "${stdio}" -eq 0 ]; then
+
+  # expand glob into a list of filenames
+  filelist=$(find ${files} -name "*.md" -type f)
 
   # loop through files
   if [ "${verbose}" -eq 1 ]; then
