@@ -4,7 +4,11 @@ The shebang indicates that this script should be executed by the bash program.
 
 ```bash
 #!/bin/bash
+```
 
+Exit immediately if anything unexpected happens to ensure more reliable behavior. Errors are useful and informative!
+
+```bash
 set -e
 ```
 
@@ -45,7 +49,7 @@ while [[ ${#} -gt 0 ]]; do
         -v|--verbose)
         verbose=1
         ;;
-        # verbose logging
+        # hidden files
         -h|--hidden)
         filename_prefix="."
         ;;

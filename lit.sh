@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 # default values
@@ -33,7 +32,7 @@ while [[ ${#} -gt 0 ]]; do
         -v|--verbose)
         verbose=1
         ;;
-        # verbose logging
+        # hidden files
         -h|--hidden)
         filename_prefix="."
         ;;
