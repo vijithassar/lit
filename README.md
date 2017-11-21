@@ -131,7 +131,7 @@ You can also comment out Markdown content using a *block* commenting style by su
 $ ./lit.sh --input "./*.css.md" --before "/*" --after "*/"
 ```
 
-## Logging ##
+### Logging ###
 
 As it processes files, the script echoes out the filenames of the resulting executable (non-Markdown) code files. If you want, you can capture these in a subshell and use them in further downstream logic, thereby totally abstracting away even the filename of the resulting processed code and creating a *completely documentation-first* workflow.
 
@@ -151,7 +151,15 @@ $ node $(./lit.sh --input "script.js.md" --before "//")
 $ python $(./lit.sh --input "script.py.md" --before "#")
 ```
 
-In this scenario you may also want to add `script.js` or `script.py` to your `.gitignore` file.
+Concise and subshell-friendly output is the most useful default, but you can also enable more verbose human-readable messages using the `--verbose` or `-v` arguments.
+
+```bash
+# compile all files in the current directory
+# and output verbose log messages
+$ ./lit.sh --verbose
+```
+
+Logging is naturally disabled when you use stdin or stdout with the `--stdio` or `-s` flags, in which case the printed output is the processed code.
 
 ### Hidden Files ###
 
@@ -164,17 +172,7 @@ For example, combining with subshells as described above:
 $ python $(./lit.sh --input script.py.md --hidden)
 ```
 
-### Verbose Logging ###
-
-Concise and subshell-friendly output is the most useful default, but you can also enable more verbose human-readable messages using the `--verbose` or `-v` arguments.
-
-```bash
-# compile all files in the current directory
-# and output verbose log messages
-$ ./lit.sh --verbose
-```
-
-Logging is naturally disabled when you use stdin or stdout with the `--stdio` or `-s` flags, in which case the printed output is the processed code.
+If you're using Git, you may also want to add `script.js` or `script.py` to your `.gitignore` file in this scenario.
 
 # Advantages #
 
