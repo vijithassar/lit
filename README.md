@@ -196,6 +196,7 @@ $ bats test.bats
 
 # Ecosystem #
 
+- [lit-web](https://github.com/vijithassar/lit-web) is a script that lets a browser execute the code blocks from a single Markdown document as JavaScript
 - [lit-node](https://github.com/Rich-Harris/lit-node) is a wrapper for Node.js which lets Node execute Markdown files, import modules declared inside Markdown files using `require()`, and also provides a REPL
 - [rollup-plugin-markdown](https://www.npmjs.com/package/rollup-plugin-markdown) implements essentially the same logic as this shell script, but it is optimized for JavaScript code, works with sourcemaps, integrates with a [popular build tool](https://rollupjs.org), and is [available via npm](https://www.npmjs.com/package/rollup-plugin-markdown)
 - [Docco](http://ashkenas.com/docco/) and its many variants render literate source code into beautiful browsable HTML, in what is arguably the inverse complement to the operation performed by this script
