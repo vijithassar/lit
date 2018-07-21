@@ -181,7 +181,7 @@ You can avoid the artifact of creating a hidden file by using [process substitio
 ```bash
 # compile script.py.md and execute the output
 # with python as though it is a file
-$ python <(cat script.py.md | lit.sh --stdio)
+$ python <(cat script.py.md | ./lit.sh --stdio)
 ```
 
 # Advantages #
