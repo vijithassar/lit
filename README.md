@@ -101,15 +101,6 @@ $ ./lit.sh --output ./build
 $ ./lit.sh --input "./source" --output .
 ```
 
-### stdin and stdout
-
-The `--stdio` or `-s` arguments can be used to read from stdin for the Markdown content to be processed and send the processed code content to stdout.
-
-```bash
-# compile annotated.py.md to code.py by routing over stdio
-$ cat annotated.py.md | ./lit.sh --stdio > code.py
-```
-
 ### Comments
 
 Rather than simply *stripping* Markdown content entirely, it can be advantageous to just *comment it out* instead, since that means all code in the output file appears on the same line as in the original literate Markdown source, and thus errors and messages can be accurately reported by debuggers, loggers, compilers, and other such development tools. To comment out Markdown content instead of stripping it, use the `--before` or `-b` arguments, followed by the character(s) used to denote inline code comments for the language you are compiling.
@@ -161,6 +152,15 @@ $ ./lit.sh --verbose
 
 Logging is naturally disabled when you use stdin or stdout with the `--stdio` or `-s` flags, in which case the printed output is the processed code.
 
+### stdin and stdout
+
+The `--stdio` or `-s` arguments can be used to read from stdin for the Markdown content to be processed and send the processed code content to stdout.
+
+```bash
+# compile annotated.py.md to code.py by routing over stdio
+$ cat annotated.py.md | ./lit.sh --stdio > code.py
+```
+
 ### Hidden Files ###
 
 In addition, the `--hidden` or `-h` arguments can be used to prepend a dot `.` to the output filename. This is useful because files that start with a dot are hidden by default on most UNIX-like file systems. This behavior lets you hide the artifacts of compiling your Markdown into executable files.
@@ -173,6 +173,16 @@ $ python $(./lit.sh --input script.py.md --hidden)
 ```
 
 If you're using Git, you may also want to add `script.js` or `script.py` to your `.gitignore` file in this scenario.
+
+### Process Substitution ###
+
+You can avoid the artifact of creating a hidden file by using [process substition](https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html) to treat stdout as a file.
+
+```bash
+# compile script.py.md and execute the output
+# with python as though it is a file
+$ python <(cat script.py.md | lit.sh --stdio)
+```
 
 # Advantages #
 

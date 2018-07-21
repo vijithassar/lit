@@ -108,6 +108,12 @@ teardown() {
   [ "${result}" = 'some code' ]
 }
 
+@test "works with process substitution" {
+  markdown=$'# a heading\nsome text\n```\nprint("test")\n```'
+  result="$(python <( echo "${markdown}" | ./lit.sh --stdio))"
+  [ "${result}" = 'test' ]
+}
+
 @test "selects files to compile based on a file glob provided via the --input long argument" {
   touch test/first.py.md
   touch test/second.py.md
