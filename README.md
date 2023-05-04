@@ -4,6 +4,8 @@ a little preprocessor for literate programming
 
 ![fire](https://cloud.githubusercontent.com/assets/3488572/10808206/272feea0-7dbf-11e5-8d49-f6134a900530.png)
 
+inverts code and comments in any language to make a codebase **documentation-first**
+
 # Quick Start
 
 By default, extracts code from Markdown files:
